@@ -22,7 +22,6 @@ class CreateUsersTable extends Migration
             $table->string('password', 100);
             $table->rememberToken();
             $table->string('cellphone', 16)->index('cellphone');
-            $table->boolean('is_admin')->default(false)->index('is_admin');
             $table->timestamps();
         });
     }

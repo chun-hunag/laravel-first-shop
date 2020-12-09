@@ -1,5 +1,6 @@
 <?php
 use App\User;
+use App\Product;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +14,10 @@ use App\User;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/test', function () {
+    return Product::All();
 });
 
 Auth::routes();

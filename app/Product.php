@@ -22,7 +22,11 @@ class Product extends Model
      *
      * @var array
      */
-    protected $hidden = [
-    ];
+    protected $hidden = ['stock_number'];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 
 }

@@ -20,7 +20,7 @@ class CreateProductSkusTable extends Migration
             $table->string('stock_number'); // 貨物批次號碼
             $table->string('price', 10, 2);
             $table->unsignedInteger('stock'); // 指定非負數整數
-            $table->unsignedInteger('product_id');
+            $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
         });

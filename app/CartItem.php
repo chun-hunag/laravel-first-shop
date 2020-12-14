@@ -19,4 +19,9 @@ class CartItem extends Model
      * @var array
      */
     protected $hidden = [];
+
+    public function productSku()
+    {
+        return $this->belongsTo(ProductSku::class);
+    }
 }

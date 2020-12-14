@@ -47,6 +47,46 @@ class AdminTableSeeder extends AdminTablesSeeder
                 'permission' => 'auth.management',
                 'created_at' => date('y-m-d h:m:s',time()),
                 'updated_at' => date('y-m-d h:m:s',time())
+            ],
+            [
+                'parent_id' => 0,
+                'order'     => 11,
+                'title'     => 'Carts',
+                'icon'      => 'fa-shopping-cart',
+                'uri'       => '/carts',
+                'permission' => 'auth.management',
+                'created_at' => date('y-m-d h:m:s',time()),
+                'updated_at' => date('y-m-d h:m:s',time())
+            ],
+            [
+                'parent_id' => 0,
+                'order'     => 12,
+                'title'     => 'CartItems',
+                'icon'      => 'fa-opencart',
+                'uri'       => '/cart-items',
+                'permission' => 'auth.management',
+                'created_at' => date('y-m-d h:m:s',time()),
+                'updated_at' => date('y-m-d h:m:s',time())
+            ],
+            [
+                'parent_id' => 0,
+                'order'     => 13,
+                'title'     => 'Orders',
+                'icon'      => 'fa-clipboard',
+                'uri'       => '/orders',
+                'permission' => 'auth.management',
+                'created_at' => date('y-m-d h:m:s',time()),
+                'updated_at' => date('y-m-d h:m:s',time())
+            ],
+            [
+                'parent_id' => 0,
+                'order'     => 14,
+                'title'     => 'OrderItems',
+                'icon'      => 'fa-sitemap',
+                'uri'       => '/order-items',
+                'permission' => 'auth.management',
+                'created_at' => date('y-m-d h:m:s',time()),
+                'updated_at' => date('y-m-d h:m:s',time())
             ]
         ]);
     }

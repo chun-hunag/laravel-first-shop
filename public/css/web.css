@@ -1,0 +1,48 @@
+
+
+.bg-blue-deep {
+    background-color: #1c79c0;
+}
+
+.bg-blue-light {
+    background-color: #0dd3ff;
+}
+
+.bg-blue-mid {
+    background-color: #0389ff;
+}
+
+.bg-gray {
+    background-color: #f3f3f3;
+}
+
+.bg-inherit {
+    background-color: inherit;
+}
+
+.font-color-gray {
+    color: #666666;
+}
+
+.font-color-blue-deep {
+    color: #1c79c0;
+}
+
+.font-color-blue-light {
+    color: #0dd3ff;
+}
+
+.font-color-blue-mid {
+    color: #0389ff;
+}
+
+
+
+.header {
+    border-bottom: 0.5rem double #0389ff;
+    background-color: #f3f3f3;
+}
+
+.footer{
+    background-color: #f3f3f3;
+}

@@ -12,9 +12,12 @@ use App\Product;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', 'SiteController@index')->name('index');
+
+Route::get('/welcone', function () {
     return view('welcome');
 });
+
 
 Route::get('/test', function () {
     return Product::All();

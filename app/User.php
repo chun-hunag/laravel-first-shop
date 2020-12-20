@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -26,7 +27,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 
     ];
 
     /**
@@ -37,4 +38,33 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * remember_token mutator
+     * @return void
+     */
+    public function setRememberTokenAttribute($token)
+    {
+        $this->attributes['remember_token'] = bcrypt($token);
+    }
+
+    /**
+     * remember_token accessor
+     * @return string
+     */
+    public function getRememberTokenAttribute($token)
+    {
+        return $token;
+    }
+
+
+    /**
+     * Generate reset password token;
+     * @return string
+     */
+    public static function genResetPasswordToken()
+    {
+        return Str::random(60);
+    }
+
 }

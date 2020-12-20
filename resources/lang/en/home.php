@@ -24,6 +24,7 @@ return [
     
     'order_recorder' => 'Order Recorder',
 
-    'order_search' => 'Order Search'
+    'order_search' => 'Order Search',
+
 
 ];

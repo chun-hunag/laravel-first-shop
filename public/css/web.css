@@ -46,3 +46,28 @@
 .footer{
     background-color: #f3f3f3;
 }
+
+/* home start */
+
+.section-header {
+    border-bottom: 1px solid #1c79c0;
+    font-size: 1.5rem;
+}
+
+.panel-container {
+    min-height: 30vh;
+    border-radius: 5px;
+}
+
+.panel-title {
+    border-bottom: 1px solid #0389ff;
+    font-size: 1.0rem;
+}
+
+.card {
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    border: 1px solid #c0c0c0;
+}
+
+/* home end */

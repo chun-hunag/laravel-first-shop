@@ -26,7 +26,7 @@
                     <a href="{{ URL::route('home') }}">{{__('home.change_member_data')}}</a>
                 </div>
                 <div class="col-md-3 m-2 card">
-                    <a href="{{ URL::route('reset') }}">{{__('home.change_password')}}</a>
+                    <a href="{{ URL::route('home') }}">{{__('home.change_password')}}</a>
                 </div>
             </div>
             {{-- trade recorder --}}

@@ -19,16 +19,17 @@ Route::get('/welcone', function () {
 });
 
 
-Route::get('/test', function () {
-    return Product::All();
-});
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/products', function () {
+    return view('site.product');
+});
+
+// Route::get('/login', 'Auth\LoginController@login')->name('login');
+
 
 Route::get('/home/password/reset', 'Auth\ResetPasswordController@showResetForm')->name('reset');
-// Route::get('/home/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('reset');
 
 Route::post('/home/password/update', 'Auth\ResetPasswordController@reset')->name('home.password.update');
 

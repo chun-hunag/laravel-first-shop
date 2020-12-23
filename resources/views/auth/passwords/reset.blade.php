@@ -1,6 +1,4 @@
 @extends('layouts.app')
-<?php echo $token;
- ?>
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

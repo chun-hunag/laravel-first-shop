@@ -80,4 +80,5 @@ class ProductController extends AdminController
 
         return $form;
     }
+
 }

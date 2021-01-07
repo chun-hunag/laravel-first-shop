@@ -1,6 +1,7 @@
 <?php
 use App\User;
 use App\Product;
+use App\Http\Controllers\ProductsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,11 +21,13 @@ Route::get('/welcone', function () {
 
 
 Auth::routes();
+Route::get('/test', function () {
+    return view('site.test');
+});
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/products', function () {
-    return view('site.product');
-});
+
+Route::get('/products/{id}/show',[ProductsController::class, 'show']);
 
 // Route::get('/login', 'Auth\LoginController@login')->name('login');
 

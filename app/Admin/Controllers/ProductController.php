@@ -105,6 +105,7 @@ class ProductController extends AdminController
         $form->text('title', __('Title'));
         $form->editor('description', __('Description'))->rules('required');
         $form->radio('on_sale', 'On Sale')->options([true => 'Yes', false=> 'No'])->default(false);
+        $form->number('price', __('Price'))->default(0)->readonly();;
         $form->number('sold_count', __('Sold count'));
         $form->number('review_count', __('Review count'));
         // $form->decimal('price', __('Price'));
@@ -125,7 +126,7 @@ class ProductController extends AdminController
         });
 
         $form->saving(function (Form $form) {
-            $form->model()->price = collect($form->input('skus'))->where(Form::REMOVE_FLAG_NAME, 0)->min('price') ?: 0;
+            $form->price = collect($form->input('productSkus'))->where(Form::REMOVE_FLAG_NAME, 0)->min('price') ?: 0;
         });
         return $form;
     }

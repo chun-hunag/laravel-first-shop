@@ -1,5 +1,10 @@
 
-
+.deep-red {
+    color: #d0011b;
+}
+.gray {
+    color: #767676;
+}
 .bg-blue-deep {
     background-color: #1c79c0;
 }

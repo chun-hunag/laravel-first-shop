@@ -22,12 +22,12 @@ class ProductSeeder extends Seeder
                 <p>【商品材質】 ．主要面料：聚酯纖維，錦綸</p>
                 
                 <p>【適合運動】 ．適合訓練等運動</p>',
-                'on_sale' => 0,
+                'on_sale' => 1,
                 'cover_image' => '/images/products/1/419a0a66ff30db6460ad5286e1da0a69.jfif',
                 'images' => '["\/images\/products\/1\/b983d79552481798577054edb20d6521.jfif","\/images\/products\/1\/81210961a26f8d2f057da965e6bd6d27.jfif","\/images\/products\/1\/91f85b89ab3b7bcdb4929f230fb71c9d.jfif","\/images\/products\/1\/ce9acc7176dc04d3944f8b131f0ed473.jfif","\/images\/products\/1\/520f20378e685a7e35d71b6447faa602.jfif"]',
                 'sold_count' => 0,
                 'review_count' => 0,
-                'price' => 0,
+                'price' => 150.00,
                 'created_at' => date('Y-m-d h:m:s',time()),
                 'updated_at' => date('Y-m-d h:m:s',time())
             ],
@@ -106,12 +106,12 @@ class ProductSeeder extends Seeder
                 <p>📍保存期限：5年(未開封</p>
                 
                 <p>) 📍產品內容：防塵口罩x50入 商品名稱 進口三層口罩 製造商 仙桃市鴻亮無紡布製品有限公司 製造商電話 18071971828 製造商地址 中國湖北仙桃彭場鎮中嶺村 商品原產地 中國 進口商名稱 超皇有限公司 進口商電話 02-2648-2039 進口商地址 新北市汐止區工建路200-1號1樓 主要成分/材料 無紡布+熔噴布 度量/販售數量/販售規格：17.4 x 9.3 (&plusmn;0.5) cm / 50入/ 製造日期 2020/08/01 保存期限 5年(未開封) 中文標示 進口三層口罩</p>',
-                'on_sale' => 0,
+                'on_sale' => 1,
                 'cover_image' => '/images/products/2/9a8eba5107c409dde682ceeb4f2d7826.jfif',
                 'images' => '["\/images\/products\/2\/5b11b9aa1e1fe1168555d983ab4bbcde.jfif","\/images\/products\/2\/39ccdd2089e8d750bb85183de2ac459c.jfif"]',
                 'sold_count' => 0,
                 'review_count' => 0,
-                'price' => 0,
+                'price' => 20.00,
                 'created_at' => date('Y-m-d h:m:s',time()),
                 'updated_at' => date('y-m-d h:m:s',time())
             ],
@@ -128,12 +128,12 @@ class ProductSeeder extends Seeder
                 <p>【使用說明】 水洗會縮短產品壽命,如需清潔,建議以濕布或免水洗清潔劑處理. 本商品為家居室內拖鞋,不可做為浴室拖鞋使用.</p>
                 
                 <p>【購買須知】 鑑賞期非試用期，考量個人衛生，產品如經使用，恕無法接受退換貨，請見諒。</p>',
-                'on_sale' => 0,
+                'on_sale' => 1,
                 'cover_image' => '/images/products/3/69a5efdb7d0dae0a8d0a5e18c2bd4b28.jfif',
                 'images' => '["\/images\/products\/3\/d794b69a9633e6629d962f352072522b.jfif","\/images\/products\/3\/e3b2ac0589400d571be546d849960674.jfif","\/images\/products\/3\/6b733cc57140e1127610df0a9130c3be.jfif","\/images\/products\/3\/ed70f79269ecaf9e381b52d4f3f1615d.jfif","\/images\/products\/3\/8a2bb479e08427abeb051d50d9bc9f6b.jfif"]',
                 'sold_count' => 0,
                 'review_count' => 0,
-                'price' => 0,
+                'price' => 50.00,
                 'created_at' => date('y-m-d h:m:s',time()),
                 'updated_at' => date('y-m-d h:m:s',time())
             ],
@@ -144,24 +144,24 @@ class ProductSeeder extends Seeder
                 <p>利用鏡面反射原理，躺著就能夠輕鬆享受電影雜誌，又能夠避免長時間久坐而傷脊椎、頸椎呢！</p>
                 
                 <p>本款產品的到來，不是宣傳什麼，就是用實力與良心說話，雖說眼鏡行業是個無底洞，但是打造一款好的眼鏡，無論是選材，配件，電焊，拋光，電鍍，等個個環節是要分開完成。 本款產品選用優質板材打造，質感強，鏡片選用優質的強化玻璃打造，達到100%防紫外線功能，板材眼鏡實用性很強，不容易變形，美學度高，韌性強。揭開眼鏡的秘密就是這個價！</p>',
-                'on_sale' => 0,
+                'on_sale' => 1,
                 'cover_image' => '/images/products/4/611de59fed1f4adf77c4d502a9b8fdc7.jfif',
                 'images' => '["\/images\/products\/4\/5bdc03b293fc6dc7964458d0ae22208c.jfif","\/images\/products\/4\/15296a95e2d859b11cf0ec72696287fc.jfif","\/images\/products\/4\/092ac38d66388ea7c270cc596c1feb24.jfif"]',
                 'sold_count' => 0,
                 'review_count' => 0,
-                'price' => 0,
+                'price' => 159.00,
                 'created_at' => date('y-m-d h:m:s',time()),
                 'updated_at' => date('y-m-d h:m:s',time())
             ],
             [
                 'title' => '藍牙耳機盒 保護套',
                 'description' => '<p>顏色 : 黑色、白色、夜幕綠</p>',
-                'on_sale' => 0,
+                'on_sale' => 1,
                 'cover_image' => '/images/products/5/53d15f4e5c6d49ac761157914ed60559.jfif',
                 'images' => '["\/images\/products\/5\/4847531bf1dbc3387869395bc24c8f0a.jfif","\/images\/products\/5\/58d6b67dc312ce0d64a409c9bfef4054.jfif","\/images\/products\/5\/0413d6b9a0e568ac47790c9b04f7d90a.jfif","\/images\/products\/5\/216ff5f19e3068a7d57e3fca06f672d7.jfif"]',
                 'sold_count' => 0,
                 'review_count' => 0,
-                'price' => 0,
+                'price' => 219.00,
                 'created_at' => date('y-m-d h:m:s',time()),
                 'updated_at' => date('y-m-d h:m:s',time())
             ],

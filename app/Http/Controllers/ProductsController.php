@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\ProductSku;
+
 class ProductsController extends Controller
 {
     
@@ -28,6 +30,18 @@ class ProductsController extends Controller
         if(is_null( $product)){
             return view('site.index');
         }
-        return view('product.product', ['product' => $product]);
+
+        // make sure product is on_sale
+        if($product->on_sale != 1){
+            return view('site.index');
+        }
+
+        // search produckSku
+        $productSkus = ProductSku::where('product_id', $product->id)->get();
+        if(is_null($productSkus)){
+            return view('site.index');
+        }
+        
+        return view('product.product', ['product' => $product, 'productSkus' => $productSkus]);
     }
 }

@@ -1,13 +1,11 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="container">
-    {{-- search bar --}}
-    @include('site.searchBar')
-    {{-- product list--}}
-    <div>
-
-    </div>
-
-</div>
-@endsection
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>First Shop</title>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="{{ asset('js/app.js') }}"></script>
+</body>
+</html>

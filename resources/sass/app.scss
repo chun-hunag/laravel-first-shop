@@ -1,16 +1,8 @@
-// Variables
-@import 'variables';
-
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
+// Variables
+@import 'variables';
+
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
-
-// FontAwesome
-@import "node_modules/font-awesome/scss/font-awesome.scss";
-
-// Swiper
-@import "node_modules/swiper/swiper.scss";
-@import "node_modules/swiper/components/pagination/pagination.scss";
-@import "node_modules/swiper/components/navigation/navigation.scss";

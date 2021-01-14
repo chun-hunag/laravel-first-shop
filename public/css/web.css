@@ -5,6 +5,20 @@
 .gray {
     color: #767676;
 }
+.white {
+    color: #FFFFFF;
+}
+.blue-deep {
+    color: #1c79c0;
+}
+
+.blue-light {
+    color: #0dd3ff;
+}
+
+.blue-mid {
+    color: #0389ff;
+}
 .bg-blue-deep {
     background-color: #1c79c0;
 }
@@ -20,7 +34,9 @@
 .bg-gray {
     background-color: #f3f3f3;
 }
-
+.bg-white {
+    background-color: #FFFFFF;
+}
 .bg-inherit {
     background-color: inherit;
 }
@@ -41,7 +57,12 @@
     color: #0389ff;
 }
 
-
+.icon {
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
 .header {
     border-bottom: 0.5rem double #0389ff;
@@ -76,3 +97,20 @@
 }
 
 /* home end */
+
+/* SearchBar Component Start */
+.seachbar-container {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.search-input {
+    border: 0px solid #FFFFFF;
+    border-right: 1px solid #FFFFFF;
+}
+
+.search-btn {
+    border: 0px solid #FFFFFF;
+    border-left: 1px solid #FFFFFF;
+}
+
+/* SearchBar Component End */

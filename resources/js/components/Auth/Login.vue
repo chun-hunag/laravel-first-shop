@@ -6,12 +6,12 @@
                 <div class="card-header">Login</div>
 
                 <div class="card-body">
-                    <div method="" action="">
+                    <div>
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" :value="email" required autocomplete="email" autofocus>
+                                <input id="email" type="email" class="form-control" name="email" value="" v-model="email"  required autocomplete="email" autofocus>
 
                                 <div v-if="false">
                                     <span class="invalid-feedback" role="alert">
@@ -25,7 +25,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" :value="password" required autocomplete="current-password">
+                                <input id="password" type="password" class="form-control" name="password" value="" v-model="password" required autocomplete="current-password">
 
                                 <div v-if="false">
                                     <span class="invalid-feedback" role="alert">
@@ -49,7 +49,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button :onclick="login()" class="btn btn-primary">
+                                <button type="button" v-on:click="login" class="btn btn-primary">
                                   Login
                                 </button>
                                 <a class="btn btn-link" href="'/password/request'">
@@ -66,6 +66,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     data () {
       return {
@@ -77,67 +78,18 @@ export default {
       }
     },
     methods : {
-        login () {
-            // axios.defaults.withCredentials = true;
-            // let param = { 
-            //                 'email' : this.email,
-            //                 'password' : this.password, 
-            //             };
-            // let url = '/login';
-            // let options = {
-            //     method: 'POST',
-            //     headers: {           
-            //                 'X-Requested-With' : 'XMLHttpRequest',
-            //                 'Access-Control-Allow-Credentials': true
-            //              },
-            //     data: param,
-            //     withCredentials: true, // 默认的
-            //     url,
-            // };
-            axios({ 
-                    method: 'post', 
-                    url: '/login', 
-                    headers: { 
-                        'X-Requested-With' : 'XMLHttpRequest' 
-                    },
-                    params: { 
-                        'email' : this.email,
-                        'password' : this.password, 
-                    },
-                    // xsrfHeaderName: 'X-XSRF-TOKEN', // default
-                    // withCredentials: true, // 默认的
-                  })    
-            .then(reponse => {
-                console.log(response);
-            }).catch(error => {
-                console.log(error);
-            });
+        login: function () {
+            let email = this.email;
+            let password = this.password;
+            axios.post('/login',{
+                'email' : email,
+                'password' : password,
+                })
+                .then(response => {                    
 
+                }).catch(error => {
 
-            // axios.request(options)
-            // .then(reponse => {
-            //     console.log(response);
-            // }).catch(error => {
-
-            // });
-            // axios.get(
-            // {
-            //     url :　'/login',
-            //     params : {
-            //         'email' : this.email,
-            //         'password' : this.password,
-            //     },
-            //     headers : {
-            //         'X-CSRF-TOKEN2' : document.head.querySelector('meta[name="csrf-token"]'),
-            //         'X-Requested-With' : 'XMLHttpRequest'
-            //     }
-
-            // })
-            // .then(reponse => {
-            //     console.log(response);
-            // }).catch(error => {
-
-            // });
+                });
         }
     }
 }

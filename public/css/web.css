@@ -72,6 +72,18 @@
 .footer{
     background-color: #f3f3f3;
 }
+/* common start */
+.invalid-feedback {
+    display: block !important;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #e3342f;
+  }
+  
+
+
+/* common end */
 
 /* home start */
 

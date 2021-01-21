@@ -22,8 +22,8 @@
                         <li class="nav-item">
                             <router-link :to="'/login'" class="nav-link"> Login </router-link>
                         </li>
-                        <li v-if="isGuest" class="nav-item">
-                            <router-link :to="{name: 'register, query:{}'}" class="nav-link"> Register </router-link>
+                        <li class="nav-item">
+                            <router-link :to="'/register'" class="nav-link"> Register </router-link>
                         </li>
                     </div>
                     <div v-else>

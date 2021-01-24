@@ -83,7 +83,7 @@
                                 <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirm Password</label>
 
                                 <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" v-model="passwordConfirmation" required autocomplete="new-password">
                                 </div>
                             </div>
 
@@ -111,24 +111,44 @@ export default {
           email : '',
           cellphone : '',
           password : '',
+          passwordConfirmation : '',
           errors : ''
       }
     },
     methods : {
         register : function () {
-            axios.post('/register',{
+            new Promise((resolve, reject) => {
+             axios.post('/register',{
                 'first_name' : this.firstName,
                 'last_name' : this.lastName,
                 'email' : this.email,
                 'cellphone' : this.cellphone,
-                'password' : this.password
+                'password' : this.password,
+                'password_confirmation' : this.passwordConfirmation
                 })
                 .then(response => {
+                    resolve(response);
                 }).catch(error => {
                     if(error.response.status = 422){
                         this.errors = error.response.data.errors;
                     }
                 });
+            }).then(
+                () => { // success
+                    axios.get('/user/get-user-name')
+                        .then(response => {
+                            this.$store.commit('setUserName', response.data.name);
+                            this.$store.commit('setIsGuest', false);
+                            this.$router.push('index');
+
+                        })
+                        .catch(error => {
+                        });
+                },
+                () => { // failed
+                }
+            );
+           
         },
         showError : function (columnName) {
             if(this.errors.hasOwnProperty(columnName)){

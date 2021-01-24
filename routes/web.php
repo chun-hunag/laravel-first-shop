@@ -24,6 +24,9 @@ Route::get('/user/get-user-name', 'UserController@getUserName');
 
 
 Route::get('/', 'SiteController@index')->name('index');
+Route::get('/index', 'SiteController@index')->name('index');
+
+
 
 Route::get('/welcone', function () {
     return view('welcome');

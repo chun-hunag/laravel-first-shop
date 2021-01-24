@@ -13,9 +13,9 @@
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control" name="email" value="" v-model="email"  required autocomplete="email" autofocus>
 
-                                <div v-if="false">
+                                <div v-if="showError('email')">
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ message }}</strong>
+                                        <strong>{{ getErrorMsg('email') }}</strong>
                                     </span>
                                 </div>
                             </div>
@@ -27,9 +27,9 @@
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control" name="password" value="" v-model="password" required autocomplete="current-password">
 
-                                <div v-if="false">
+                                <div v-if="showError('password')">
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ message }}</strong>
+                                        <strong>{{ getErrorMsg('password') }}</strong>
                                     </span>
                                 </div>
                             </div>
@@ -74,22 +74,52 @@ export default {
           remember : false,
           email : '',
           password : '',
+          errors : ''
           
       }
     },
     methods : {
         login: function () {
-            let email = this.email;
-            let password = this.password;
-            axios.post('/login',{
-                'email' : email,
-                'password' : password,
+            new Promise((resolve, reject) => {
+                axios.post('/login',{
+                    'email' : this.email,
+                    'password' : this.password,
+                    'remember' : this.remember
                 })
-                .then(response => {                    
-
+                .then(response => {
+                    resolve(response);                    
                 }).catch(error => {
-
+                    if(error.response.status = 422){
+                        this.errors = error.response.data.errors;
+                    }
                 });
+            }).then(
+                () => { // success
+                    axios.get('/user/get-user-name')
+                        .then(response => {
+                            this.$store.commit('setUserName', response.data.name);
+                            this.$store.commit('setIsGuest', false);
+                            this.$router.push('index');
+                            location.reload(); // refresh csrf token
+                        })
+                        .catch(error => {
+                        });
+                },
+                () => { // failed
+                }
+
+
+            );
+
+        },
+        showError : function (columnName) {
+            if(this.errors.hasOwnProperty(columnName)){
+                return true;
+            }
+            return false;
+        },
+        getErrorMsg :function (columnName) {
+            return this.errors[columnName][0];
         }
     }
 }

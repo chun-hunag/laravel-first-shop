@@ -29,15 +29,17 @@ class UserController extends Controller
     public function getUserName(Request $request)
     {
         $user = Auth::user();
+
         $name = '';
         if(!is_null($user)){
-            $name = $user->name;
+            $name = $user->last_name;
+            
         }
         return response()->json(
             [
-                'name' => $name
+                'name' => $name,
             ]
-        );
+        , 200);
     }
     
 }

@@ -1,4 +1,5 @@
 import router from './router';
+import store from './store';
 import App from './components/App';
 import 'bootstrap/dist/css/bootstrap.css';
 // import 'bootstrap-vue/dist/bootstrap-vue.css';
@@ -48,6 +49,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 const app = new Vue({
     el: '#app',
     router,
+    store, // vuex
     components: { App },
 	template: '<App/>',
 });

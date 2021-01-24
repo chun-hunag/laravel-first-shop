@@ -8,12 +8,13 @@ import Register from '../components/auth/Register.vue';
 Vue.use(VueRouter);
 
 export default new VueRouter({
+    mode: 'history',
     routes: [
       {
-          path: '/index',
-          alias: '/',
-          name: 'index',
-          component: Index,
+        path: '/index',
+        alias: '/',
+        name: 'index',
+        component: Index,
       },
       {
         path: '/login',

@@ -28,19 +28,16 @@
                     </div>
                     <div v-else>
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{userName}} <span class="caret"></span>
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                                {{ userName }} <span class="caret"></span>
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/logout"
-                                onclick="event.preventDefault();
-                                                document.getElementById('logout-form').submit();">
+                                <a class="dropdown-item" @click="logout()">
                                    Logout
                                 </a>
 
                                 <form id="logout-form" action="/logout" method="POST" style="display: none;">
-                                    @csrf
                                 </form>
                             </div>
                         </li>
@@ -53,36 +50,43 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     data () {
       return {
-          isGuest : true,
-          isRegisterPage: false,
-          userName : '',
+
       }
     },
-    mounted : function () {
-        new Promise((resolve, reject) => {
-            axios.get('/user/is-guest')
-                .then(response => {
-                    this.isGuest = response.data.isGuest;
-                    return resolve(response);
-                })
-                .catch(error => {
+    methods : {
+        logout : function () {
+            axios.post('/logout')
+            .then(response => {
+                this.$store.commit('setIsGuest', true);
+                this.$router.push('index');
+                location.reload(); // refresh csrf token
+            }).catch(error => {
 
-                });
-        }).then(
-            () => { // success
-                axios.get('/user/get-user-name')
-                     .then(response => {
-                        this.userName = response.data.name;
-                     })
-                     .catch(error => {
-                     });
-            },
-            () => { // failed
+            });
+        }
+    },
+    mounted : function () {
+        axios.get('/user/get-user-name')
+        .then(response => {
+            this.$store.commit('setUserName', response.data.name);
+            if (this.userName !== '') { // 非空白 代表有登入
+                this.$store.commit('setIsGuest', false);
             }
-        );        
+        })
+        .catch(error => {
+        });
+    },
+    computed : {
+        userName: function () {
+            return  this.$store.state.userName;
+        },
+        isGuest: function () {
+            return this.$store.state.isGuest;
+        }
     }
 }
 </script>

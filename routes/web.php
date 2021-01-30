@@ -38,7 +38,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/products/{id}/show',[ProductsController::class, 'show']);
+Route::get('/products/{id}',[ProductsController::class, 'getProductById']);
 
 // Route::get('/login', 'Auth\LoginController@login')->name('login');
 
@@ -47,3 +47,7 @@ Route::get('/home/password/reset', 'Auth\ResetPasswordController@showResetForm')
 
 Route::post('/home/password/update', 'Auth\ResetPasswordController@reset')->name('home.password.update');
 
+
+Route::get('{any}', function () {
+    return view('site.index');
+})->where('any','.*');

@@ -33,18 +33,21 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
-import { faGooglePlus } from '@fortawesome/free-brands-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { faGooglePlus } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 library.add(faCoffee, faGooglePlus);
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
-// 開啟 CORS(Cross-Origin Resource Sharing()，它使我们能透過AJAX在不同網域之間共享Cookie。
-// axios.defaults.withCredentials = true;
 
-// axios.defaults.withCredentials = true;
-// Vue.http.options.credentials = true;
+import VueAwesomeSwiper from 'vue-awesome-swiper';
+
+// require styles
+import 'swiper/css/swiper.css';
+Vue.use(VueAwesomeSwiper, /* { default global options } */)
+
+
 
 const app = new Vue({
     el: '#app',

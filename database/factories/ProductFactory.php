@@ -135,7 +135,8 @@ $factory->define(App\Product::class, function (Faker $faker) {
     $product = $products;
     $product['sold_count'] = $faker->numberBetween(0, 5);
     $product['review_count'] = $faker->numberBetween(0, 5);
-    $product['price'] = 0;
+    $product['price'] = $faker->randomFloat(2, $min = 0, $max = 1000);
+    $product['rating'] = $faker->numberBetween(1, 5);
     $product['created_at'] = date('Y-m-d h:m:s',time());
     $product['updated_at'] = date('Y-m-d h:m:s',time());
 

@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->boolean('on_sale');
             $table->string('cover_image');
+            $table->float('rating')->default(0);
             $table->text('images');
             $table->unsignedInteger('sold_count')->default(0);
             $table->unsignedInteger('review_count')->default(0);

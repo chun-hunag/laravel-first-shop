@@ -11,7 +11,7 @@ class ProductSku extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'description', 'stock_number',  'price', 'stock'];
+    protected $fillable = ['title', 'description', 'stock_number', 'stock'];
 
     /**
      * The attributes that should be hidden for arrays.

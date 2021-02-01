@@ -18,7 +18,6 @@ class CreateProductSkusTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->string('stock_number')->default(''); // 貨物批次號碼
-            $table->decimal('price', 10, 2);
             $table->unsignedInteger('stock'); // 指定非負數整數
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');

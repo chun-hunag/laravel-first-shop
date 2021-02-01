@@ -30,7 +30,6 @@ class ProductSkuController extends AdminController
         $grid->column('title', __('Title'));
         $grid->column('description', __('Description'));
         $grid->column('stock_number', __('Stock number'));
-        $grid->column('price', __('Price'));
         $grid->column('stock', __('Stock'));
         $grid->column('product_id', __('Product id'));
         $grid->column('created_at', __('Created at'));
@@ -53,7 +52,6 @@ class ProductSkuController extends AdminController
         $show->field('title', __('Title'));
         $show->field('description', __('Description'));
         $show->field('stock_number', __('Stock number'));
-        $show->field('price', __('Price'));
         $show->field('stock', __('Stock'));
         $show->field('product_id', __('Product id'));
         $show->field('created_at', __('Created at'));
@@ -74,7 +72,6 @@ class ProductSkuController extends AdminController
         $form->text('title', __('Title'));
         $form->text('description', __('Description'));
         $form->text('stock_number', __('Stock number'));
-        $form->text('price', __('Price'));
         $form->number('stock', __('Stock'));
         $form->number('product_id', __('Product id'));
 

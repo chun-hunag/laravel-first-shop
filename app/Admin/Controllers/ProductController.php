@@ -30,9 +30,10 @@ class ProductController extends AdminController
 
         $grid->column('id', __('Id'));
         $grid->column('title', __('Title'));
-        $grid->column('description', __('Description'));
+        // $grid->column('description', __('Description'));
         $grid->column('cover_image', __('Cover Image'));
         $grid->column('images', __('Images'));
+        $grid->column('rating', __('Rating'));
         $grid->column('sold_count', __('Sold count'));
         $grid->column('review_count', __('Review count'));
         $grid->column('price', __('Price'));
@@ -70,6 +71,7 @@ class ProductController extends AdminController
             return $html;
         })->unescape();
         // $show->field('images', __('Images'));
+        $show->field('Rating', __('Rating'));
         $show->field('sold_count', __('Sold count'));
         $show->field('review_count', __('Review count'));
         $show->field('price', __('Price'));
@@ -105,7 +107,8 @@ class ProductController extends AdminController
         $form->text('title', __('Title'));
         $form->editor('description', __('Description'))->rules('required');
         $form->radio('on_sale', 'On Sale')->options([true => 'Yes', false=> 'No'])->default(false);
-        $form->number('price', __('Price'))->default(0)->readonly();;
+        $form->decimal('price', __('Price'))->default(0);
+        $form->decimal('rating', __('Rating'))->default((0))->readonly();
         $form->number('sold_count', __('Sold count'));
         $form->number('review_count', __('Review count'));
         // $form->decimal('price', __('Price'));
@@ -121,13 +124,9 @@ class ProductController extends AdminController
             $form->text('title', __('SKU Title'))->rules('required');
             $form->text('description', __('SKU Description'))->rules('required');
             $form->text('stock_number', __('Stock Number')); 
-            $form->decimal('price', __('Price'))->rules('required|numeric|min:0.01');
             $form->number('stock', __('Stock'))->rules('required|integer|min:0');
         });
 
-        $form->saving(function (Form $form) {
-            $form->price = collect($form->input('productSkus'))->where(Form::REMOVE_FLAG_NAME, 0)->min('price') ?: 0;
-        });
         return $form;
     }
 
@@ -140,39 +139,11 @@ class ProductController extends AdminController
      */
     public function create(Content $content)
     {   
-        // return $this->form();
-        // return view('layouts.admin.form_upload');
-
-        // return view('admin.products.create');
-
         return $content
             ->title($this->title())
             ->description($this->description['create'] ?? trans('admin.create'))
             ->body($this->form());
     }
-
-    
-    // /**
-    //  * Edit interface.
-    //  *
-    //  * @param mixed   $id
-    //  * @param Content $content
-    //  *
-    //  * @return Content
-    //  */
-    // public function edit($id, Content $content)
-    // {
-    //     // $form = $this->form()->edit($id);
-    //     // $data = $form->model()->getAttributes();
-    //     // $form->fields()[5]->setValue($data['cover_image']);
-    //     // dump($form->fields());exit;
-    //     // dump($this->form()->edit($id)->fields());exit;
-
-    //     return $content
-    //         ->title($this->title())
-    //         ->description($this->description['edit'] ?? trans('admin.edit'))
-    //         ->body($this->form()->edit($id));
-    // }
 
     /**
      * Store a newly created resource in storage.

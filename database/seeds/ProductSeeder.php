@@ -19,8 +19,6 @@ class ProductSeeder extends Seeder
         foreach ($products as $product) {
             // create 3 productSku
             $skus = factory(\App\ProductSku::class, 3)->create(['product_id' => $product->id]);
-            // find min price productSKu , set it price as product's price
-            $product->update(['price' => $skus->min('price')]);
         }
     }
 }

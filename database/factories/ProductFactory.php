@@ -16,6 +16,7 @@ $factory->define(App\Product::class, function (Faker $faker) {
             'on_sale' => 1,
             'cover_image' => '/images/products/1/419a0a66ff30db6460ad5286e1da0a69.jfif',
             'images' => '["\/images\/products\/1\/b983d79552481798577054edb20d6521.jfif","\/images\/products\/1\/81210961a26f8d2f057da965e6bd6d27.jfif","\/images\/products\/1\/91f85b89ab3b7bcdb4929f230fb71c9d.jfif","\/images\/products\/1\/ce9acc7176dc04d3944f8b131f0ed473.jfif","\/images\/products\/1\/520f20378e685a7e35d71b6447faa602.jfif"]',
+            'sort_id' => 1
         ],
         [
             'title' => '口罩',
@@ -95,6 +96,7 @@ $factory->define(App\Product::class, function (Faker $faker) {
             'on_sale' => 1,
             'cover_image' => '/images/products/2/9a8eba5107c409dde682ceeb4f2d7826.jfif',
             'images' => '["\/images\/products\/2\/5b11b9aa1e1fe1168555d983ab4bbcde.jfif","\/images\/products\/2\/39ccdd2089e8d750bb85183de2ac459c.jfif"]',
+            'sort_id' => 2
         ],
         [
             'title' => '室內拖鞋',
@@ -112,6 +114,7 @@ $factory->define(App\Product::class, function (Faker $faker) {
             'on_sale' => 1,
             'cover_image' => '/images/products/3/69a5efdb7d0dae0a8d0a5e18c2bd4b28.jfif',
             'images' => '["\/images\/products\/3\/d794b69a9633e6629d962f352072522b.jfif","\/images\/products\/3\/e3b2ac0589400d571be546d849960674.jfif","\/images\/products\/3\/6b733cc57140e1127610df0a9130c3be.jfif","\/images\/products\/3\/ed70f79269ecaf9e381b52d4f3f1615d.jfif","\/images\/products\/3\/8a2bb479e08427abeb051d50d9bc9f6b.jfif"]',
+            'sort_id' => 3
         ],
         [
             'title' => '懶人眼鏡 臥室眼鏡 居家 懶人必備神器 躺著看電視看書 交換生日禮物 創意惡搞 創意商品 交換禮物',
@@ -123,6 +126,7 @@ $factory->define(App\Product::class, function (Faker $faker) {
             'on_sale' => 1,
             'cover_image' => '/images/products/4/611de59fed1f4adf77c4d502a9b8fdc7.jfif',
             'images' => '["\/images\/products\/4\/5bdc03b293fc6dc7964458d0ae22208c.jfif","\/images\/products\/4\/15296a95e2d859b11cf0ec72696287fc.jfif","\/images\/products\/4\/092ac38d66388ea7c270cc596c1feb24.jfif"]',
+            'sort_id' => 4 
         ],
         [
             'title' => '藍牙耳機盒 保護套',
@@ -130,6 +134,7 @@ $factory->define(App\Product::class, function (Faker $faker) {
             'on_sale' => 1,
             'cover_image' => '/images/products/5/53d15f4e5c6d49ac761157914ed60559.jfif',
             'images' => '["\/images\/products\/5\/4847531bf1dbc3387869395bc24c8f0a.jfif","\/images\/products\/5\/58d6b67dc312ce0d64a409c9bfef4054.jfif","\/images\/products\/5\/0413d6b9a0e568ac47790c9b04f7d90a.jfif","\/images\/products\/5\/216ff5f19e3068a7d57e3fca06f672d7.jfif"]',
+            'sort_id' => 5
         ],
     ]);
     $product = $products;

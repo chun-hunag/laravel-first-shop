@@ -37,6 +37,7 @@ class ProductController extends AdminController
         $grid->column('sold_count', __('Sold count'));
         $grid->column('review_count', __('Review count'));
         $grid->column('price', __('Price'));
+        $grid->column('sort_id', __('Sort Id'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
@@ -75,6 +76,11 @@ class ProductController extends AdminController
         $show->field('sold_count', __('Sold count'));
         $show->field('review_count', __('Review count'));
         $show->field('price', __('Price'));
+        $show->sort('Sort', function ($sort) {
+            $sort->setResource('/App/Sort');
+            $sort->id();
+            $sort->name();
+        });
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
@@ -108,10 +114,10 @@ class ProductController extends AdminController
         $form->editor('description', __('Description'))->rules('required');
         $form->radio('on_sale', 'On Sale')->options([true => 'Yes', false=> 'No'])->default(false);
         $form->decimal('price', __('Price'))->default(0);
-        $form->decimal('rating', __('Rating'))->default((0))->readonly();
-        $form->number('sold_count', __('Sold count'));
-        $form->number('review_count', __('Review count'));
-        // $form->decimal('price', __('Price'));
+        $form->decimal('rating', __('Rating'))->default(0)->readonly();
+        $form->number('sold_count', __('Sold count'))->default(0)->readonly();
+        $form->number('review_count', __('Review count'))->default(0)->readonly();
+        $form->select('sort_id')->options(\App\Sort::all()->pluck('name','id'));
         $form->image('cover_image', __('Cover Imgaes'))->rules('required|image')
              ->name(function ($file) {
                 return'cover_image.'.$file->guessExtension();
@@ -119,7 +125,7 @@ class ProductController extends AdminController
 
         $form->multipleImage('images', __('Images'))->rules('image')
                 ->uniqueName()->move('/images/products/tmp')->removable();
-
+        
         $form->hasMany('productSkus', __('Product Sku List'), function (Form\NestedForm $form) {
             $form->text('title', __('SKU Title'))->rules('required');
             $form->text('description', __('SKU Description'))->rules('required');

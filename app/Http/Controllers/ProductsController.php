@@ -21,6 +21,16 @@ class ProductsController extends Controller
     }
 
     /**
+     *  Search product
+     *  @return string
+     */
+    public function search(Request $request, $limit, $offset)
+    {
+
+    }
+
+
+    /**
      *  Return product data
      *  @return string
      */

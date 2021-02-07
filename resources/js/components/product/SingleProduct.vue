@@ -33,7 +33,7 @@
             </div>
             <div class="col-md-12 h-20 my-2 ">
                 <div class="text-center d-flex">
-                    <div v-for="(productSku, index) in productSkus" :key="productSku.id" class="m-1 border ">{{ productSku.title}}</div>
+                    <div v-for="(productSku, index) in productSkus" :key="productSku.id" :class="'m-1 ' + (isSelected(productSku.id) ? 'productSku-selected' : 'border') " @click="selectSku(productSku.id)" >{{ productSku.title}}</div>
                 </div>
             </div>
             <div class="col-md-12 h-10 my-2 ">
@@ -76,6 +76,7 @@ export default {
           amount: 0,
           product: '',
           productSkus: [],
+          selectedSkuId : 0,
           swiperOptionTop: {
             notNextTick: true,
             navigation: {
@@ -110,15 +111,26 @@ export default {
             if (this.amount < 1) {
                 this.amount = 0;
             }
+        },
+        selectSku: function (id) {
+          this.selectedSkuId = id;
+          if (this.amount > this.stock) {
+            this.amount = this.stock;
+          }
+        },
+        isSelected: function (id) {
+          return id === this.selectedSkuId;
         }
     },
     computed: {
         stock: function () {
-          let total = 0;
+          let stock = 0;
           this.productSkus.forEach(element => {
-            total += element.stock;
+            if (this.selectedSkuId === element.id) {
+              stock = element.stock;
+            }
           });
-          return total;
+          return stock;
         }
     },
     mounted: function () {
@@ -133,7 +145,11 @@ export default {
             this.$route.push('index');
             return;
         }
-        axios.get('/products/' + id)
+        axios.get('/products', {
+                params: {
+                  id: id
+                }
+            })
             .then(response => {
                 this.product = response.data.product;
                 this.productSkus = response.data.productSkus;
@@ -141,6 +157,7 @@ export default {
                 this.title = this.product.title;
                 this.reviewCount = this.product.review_count;
                 this.price = this.product.price;
+                this.selectedSkuId = this.productSkus[0].id;
             }).catch(error => {
 
             });
@@ -219,6 +236,9 @@ export default {
     .product-price {
       font-size: 1.875rem;
       font-weight:500;
+    }
+    .productSku-selected {
+      border: #1c79c0 solid 4px;
     }
     .product-cart-btn {
 

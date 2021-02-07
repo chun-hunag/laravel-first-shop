@@ -124,7 +124,7 @@ $factory->define(App\Product::class, function (Faker $faker) {
             
             <p>本款產品的到來，不是宣傳什麼，就是用實力與良心說話，雖說眼鏡行業是個無底洞，但是打造一款好的眼鏡，無論是選材，配件，電焊，拋光，電鍍，等個個環節是要分開完成。 本款產品選用優質板材打造，質感強，鏡片選用優質的強化玻璃打造，達到100%防紫外線功能，板材眼鏡實用性很強，不容易變形，美學度高，韌性強。揭開眼鏡的秘密就是這個價！</p>',
             'on_sale' => 1,
-            'cover_image' => '/images/products/4/611de59fed1f4adf77c4d502a9b8fdc7.jfif',
+            'cover_image' => '/images/products/4/5bdc03b293fc6dc7964458d0ae22208c.jfif',
             'images' => '["\/images\/products\/4\/5bdc03b293fc6dc7964458d0ae22208c.jfif","\/images\/products\/4\/15296a95e2d859b11cf0ec72696287fc.jfif","\/images\/products\/4\/092ac38d66388ea7c270cc596c1feb24.jfif"]',
             'sort_id' => 4 
         ],

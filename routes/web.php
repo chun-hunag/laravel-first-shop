@@ -28,7 +28,7 @@ Route::get('/index', 'SiteController@index')->name('index');
 
 
 
-Route::get('/welcone', function () {
+Route::get('/welcome', function () {
     return view('welcome');
 });
 
@@ -38,7 +38,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/products/{id}',[ProductsController::class, 'getProductById']);
+Route::get('/products/search',[ProductsController::class, 'search']);
+
+Route::get('/products',[ProductsController::class, 'getProductById']);
+
+
 
 // Route::get('/login', 'Auth\LoginController@login')->name('login');
 

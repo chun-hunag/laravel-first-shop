@@ -24,9 +24,43 @@ class ProductsController extends Controller
      *  Search product
      *  @return string
      */
-    public function search(Request $request, $limit, $offset)
+    public function search(Request $request)
     {
+        $limit = 30;
+        $page = 1; 
+        $sort = ''; 
+        $text = '';
 
+        if ($request->has('text')) {
+            $text =  $request->query('text');
+        }
+        $product = Product::select('id', 'title', 'cover_image', 'rating', 'sold_count', 'review_count', 'price', 'sort_id')
+                        ->where('on_sale', 1)
+                        ->where('title', 'like', '%' . $text . '%');
+
+        if ($request->has('sort')) {
+            $sort =  $request->query('sort');
+            $product = $product->where('sort', $sort);
+        }
+        $count = $product->count();
+
+        if ( $request->has(['limit', 'page'])) {
+            $limit = $request->query('limit');
+            $page = $request->query('page');
+        }
+        
+        $product = $product->skip(( $page - 1 ) * $limit)->take($limit);
+        $products = $product->get();
+
+        $headers = [
+            'Content-Type' => 'application/json; charset=utf-8'
+        ];
+        return response()->json(
+            [
+                'count' => $count,
+                'products' => $products
+            ]
+        , 200,  $headers, JSON_UNESCAPED_UNICODE);
     }
 
 
@@ -34,8 +68,16 @@ class ProductsController extends Controller
      *  Return product data
      *  @return string
      */
-    public function getProductById(Request $request, $id)
+    public function getProductById(Request $request)
     {
+        
+        if (!$request->has('id')) {
+            return response()->json([
+                'result' => 'product is not exist'
+            ], 200);
+        }
+
+        $id = $request->query('id');
         $product = Product::find($id);
         if(is_null( $product)){
             return response()->json([

@@ -1,49 +1,24 @@
 <template>
-  <div>
-       <div class="m-1 seachbar-container">
-          <div class="container d-flex">
-            <div class="col-md-3 mx-1 text-right"><i class="fab fa-shopify icon blue-mid"></i></div>
-            <div class="col-md-6 search-bar">
-                <form class="" method="POST" action="">
-                    <div class="d-flex bg-white">
-                        <input class="col-md-10 search-input" type="text" name="search-content">
-                          <button class="col-md-2 p-1 bg-blue-mid search-btn " ><i class="fas fa-search bg-blue-mid white icon"></i></button>
-                    </div>
-                </form>
-            </div>
-            <div class="col-md-3 mx-1 text-left"><i class="fas fa-shopping-cart blue-mid icon"></i></div>
+  <div class="container content">
+      <SearchBar v-on:searchProducts="searchProducts"></SearchBar>
+      <div class="wrapper">
+        <div class="grid-item" v-for="(product, index) in products" :key="index">
+          <div class="w-100 h-100 text-center" @click="clickProduct(product.id)">
+              <img :src="'/upload/'  + product.cover_image" class ="product-img"/>
+              <br/>
+              <span class="product-title">{{ product.title | gridTitleFilter }}</span>
+              <br/>
+              <span class=" deep-red bg-gray product-price">${{ product.price }}</span>
+          </div>
         </div>
       </div>
-      <div class="container">
-         <grid-layout :layout.sync="layout"
-                     :col-num="10"
-                     :row-height="30"
-                     :is-draggable="false"
-                     :is-resizable="false"
-                     :vertical-compact="true"
-                     :use-css-transforms="true"
-        >
-         <grid-item v-for="(product, index) in products" :key="index"
-                       :x="0 + (index % 5) * 2"
-                       :y="0 + Number.parseInt(index / 5) * 5"
-                       :w="2"
-                       :h="5"
-                       :i="0"
-                       drag-allow-from=".vue-draggable-handle"
-                       drag-ignore-from=".no-drag"
-            >
-                <div class="text">
-                    <!-- <div class="vue-draggable-handle"></div> -->
-                    <div class="no-drag" @click="clickProduct(product.id)">
-                        <img :src="'/upload/'  + product.cover_image" class ="product-img"/>
-                        <br/>
-                        <span class="product-title">{{ product.title | gridTitleFilter }}</span>
-                        <br/>
-                        <span class=" deep-red bg-gray product-price">${{ product.price }}</span>
-                    </div>
-                </div>
-            </grid-item>
-        </grid-layout>
+      <div class="w-100 text-center">
+          <div class="d-flex justify-content-center">
+            <div class="" v-for="(index) in totalPage" :key="index" @click="switchPage(index)">
+                <span v-if="index != currentPage" class="dot">{{ index }}</span>
+                <span v-else class="dot-blue">{{ index }}</span>
+            </div>
+          </div>
       </div>
   </div>
 </template>
@@ -58,7 +33,9 @@ export default {
         searchText: '',
         searchSort: '',
         searchLimit: '',
-        searchPage: '',
+        searchPage: 1,
+        totalPage: 0,
+        currentPage: 1,
         products: [],
         layout: [
 
@@ -77,6 +54,28 @@ export default {
 
           this.$router.push({ name: 'singleProduct', query: { id:  id}})
         },
+        searchProducts: function (data) {
+          console.log(data);
+          this.products = data.products;
+          this.searchText = data.searchText;
+          this.totalPage = Number.parseInt(data.count / 30) + (((data.count % 30) !== 0) ? 1 : 0);
+        },
+        switchPage: function (page) {
+          this.searchPage = page;
+          this.currentPage = page;
+          axios.get('products/search', {
+            params: {
+              text: this.searchText,
+              limit: 30,
+              page: page
+            }
+          }).then(response => {
+            this.products = response.data.products;
+            this.totalPage = Number.parseInt(response.data.count / 30) + (((response.data.count % 30) !== 0) ? 1 : 0);
+          }).catch(error => {
+
+          });
+        }
     },
     filters: {
       gridTitleFilter: function (value) {
@@ -92,10 +91,11 @@ export default {
         params: {
           text: '',
           limit: 30,
-          page: 1
+          page: this.searchPage
         }
       }).then(response => {
         this.products = response.data.products;
+        this.totalPage = (response.data.count / 30) + (((response.data.count % 30) !== 0) ? 1 : 0);
       }).catch(error => {
 
       });
@@ -124,9 +124,35 @@ export default {
   height: 20%;
   max-height: 20%;
 }
-
+.wrapper {
+  display: grid;
+  grid-template-columns: 10vw 10vw 10vw 10vw 10vw;
+  grid-auto-rows: 20vh;
+  grid-column-gap: 10px; /* 設定左右間距 */
+  grid-row-gap: 20px; /* 設定上下間距 */
+  max-width: 100vw;
+}
+.grid-item {
+  width: auto;
+  height: 100%;
+}
+.dot {
+  height: 2rem;
+  width: 2rem;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot-blue {
+  height: 2rem;
+  width: 2rem;
+  background-color: #0389ff;
+  border-radius: 50%;
+  display: inline-block;
+}
 .vue-grid-layout {
     background: #FFFFFF;
+    height: 1140px !important;
 }
 .vue-grid-item:not(.vue-grid-placeholder) {
     background: #FFFFFF;

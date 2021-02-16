@@ -14,9 +14,21 @@
       </div>
       <div class="w-100 text-center">
           <div class="d-flex justify-content-center">
-            <div class="" v-for="(index) in totalPage" :key="index" @click="switchPage(index)">
-                <span v-if="index != currentPage" class="dot">{{ index }}</span>
-                <span v-else class="dot-blue">{{ index }}</span>
+            <div class="mr-2 page-left-double-arrow" @click="toFirstPage()">
+              <i class=" fas fa-angle-double-left"></i>
+            </div>
+            <div class="mr-2 page-left-arrow" @click="pageMinus()">
+              <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="" v-for="(value, index) in currentPageArray" :key="index" @click="switchPage(value)">
+                <span v-if="value != currentPage" class="dot">{{ value }}</span>
+                <span v-else class="dot-blue">{{ value }}</span>
+            </div>
+            <div class="ml-2 page-right-arrow" @click="pagePlus()">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="ml-2 page-right-double-arrow" @click="toLastPage()">
+              <i class="fas fa-angle-double-right"></i>
             </div>
           </div>
       </div>
@@ -36,6 +48,7 @@ export default {
         searchPage: 1,
         totalPage: 0,
         currentPage: 1,
+        currentPageArray: [],
         products: [],
         layout: [
 
@@ -59,6 +72,7 @@ export default {
           this.products = data.products;
           this.searchText = data.searchText;
           this.totalPage = Number.parseInt(data.count / 30) + (((data.count % 30) !== 0) ? 1 : 0);
+          this.initCurrentPageArray();
         },
         switchPage: function (page) {
           this.searchPage = page;
@@ -75,6 +89,49 @@ export default {
           }).catch(error => {
 
           });
+        },
+        initCurrentPageArray: function () {
+          let tmpArray = [];
+          if (this.totalPage < 5) {
+            for (let i = 1; i <= this.totalPage; i++) {
+              tmpArray.push(i);
+            }
+          } else {
+            tmpArray = [1, 2, 3, 4, 5];
+          }
+          this.currentPageArray = tmpArray;
+        },
+        pagePlus: function () {
+          if (!(Math.max(...this.currentPageArray) >= this.totalPage)) { // make sure page number
+            this.currentPageArray = this.currentPageArray.map(x => x + 1);
+          }
+          if (this.currentPage < this.totalPage) {
+            this.currentPage += 1;
+            this.switchPage(this.currentPage);
+          }
+        },
+        pageMinus: function () {
+          if (!(Math.min(...this.currentPageArray) <= 1)) { // make sure page number
+             this.currentPageArray = this.currentPageArray.map(x => x - 1);
+          }
+          if (this.currentPage > 1) {
+            this.currentPage -= 1;
+            this.switchPage(this.currentPage);
+          }
+        },
+        toFirstPage: function () {
+          this.currentPage = 1;
+          this.initCurrentPageArray();
+          this.switchPage(this.currentPage);
+        },
+        toLastPage: function () {
+          this.currentPage = this.totalPage;
+          if (this.totalPage >= 5) {
+            this.currentPageArray = [this.totalPage - 4, this.totalPage - 3, this.totalPage - 2, this.totalPage - 1, this.totalPage];
+          } else {
+            this.initCurrentPageArray();
+          }
+          this.switchPage(this.currentPage);
         }
     },
     filters: {
@@ -86,6 +143,9 @@ export default {
         return (value.length > 10) ? value.substr(0, 10) : value;
       }
     },
+    computed: {
+      
+    },
     mounted: function () {
       axios.get('products/search', {
         params: {
@@ -96,6 +156,7 @@ export default {
       }).then(response => {
         this.products = response.data.products;
         this.totalPage = (response.data.count / 30) + (((response.data.count % 30) !== 0) ? 1 : 0);
+        this.initCurrentPageArray();
       }).catch(error => {
 
       });
@@ -126,7 +187,7 @@ export default {
 }
 .wrapper {
   display: grid;
-  grid-template-columns: 10vw 10vw 10vw 10vw 10vw;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr ;
   grid-auto-rows: 20vh;
   grid-column-gap: 10px; /* 設定左右間距 */
   grid-row-gap: 20px; /* 設定上下間距 */

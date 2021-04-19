@@ -8,6 +8,7 @@ export default new Vuex.Store({
     state: {
       userName: '',
       isGuest: true,
+      cart: []
     },
     mutations: {
       setUserName (state, userName) {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
       },
       setIsGuest (state, isGuest) {
           state.isGuest = isGuest;
+      },
+      setCart (state, product){
+        state.cart.push(product);
       }
     }
   })

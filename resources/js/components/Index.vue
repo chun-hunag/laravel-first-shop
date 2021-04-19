@@ -196,6 +196,8 @@ export default {
 .grid-item {
   width: auto;
   height: 100%;
+  max-height: 240px;
+  max-width: 240px;
 }
 .dot {
   height: 2rem;

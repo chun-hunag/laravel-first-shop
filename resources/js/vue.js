@@ -40,14 +40,15 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 library.add(faCoffee, faGooglePlus);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
-
 import VueAwesomeSwiper from 'vue-awesome-swiper';
 
 // require styles
 import 'swiper/css/swiper.css';
 Vue.use(VueAwesomeSwiper, /* { default global options } */)
 
-
+// mixin
+import {cookieMixin} from './mixin/cookieMixin.js';
+Vue.mixin(cookieMixin);
 
 const app = new Vue({
     el: '#app',

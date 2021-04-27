@@ -1,4 +1,17 @@
+// vue router
 import router from './router';
+// 設定router 的callback function 
+router.beforeEach((to, from, next) => { // 設置全域前置守衛(每次router 切換前)
+    store.commit('setIsLoading', true); // 開始loading
+    console.log(store.state.isLoading)
+    next();
+  });
+router.afterEach((to, from, next) => { // 設置全域後置守衛(每次router 切換後)
+    store.commit('setIsLoading', false); // 結束loading
+  });
+
+
+
 import store from './store';
 import App from './components/App';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -41,6 +54,12 @@ library.add(faCoffee, faGooglePlus);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 import VueAwesomeSwiper from 'vue-awesome-swiper';
+
+// vue-loading
+import Loading from 'vue-loading-overlay' //component
+import 'vue-loading-overlay/dist/vue-loading.css' //style
+Vue.component('Loading', Loading)
+
 
 // require styles
 import 'swiper/css/swiper.css';

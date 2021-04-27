@@ -2,6 +2,8 @@
   <div id="app">
     <Header></Header>
     <router-view></router-view>
+    <!-- vue-loading -->
+    <loading :active.sync="isLoading"></loading>
     <Footer></Footer>
   </div>
 </template>
@@ -19,5 +21,10 @@ export default {
         Footer,
         Header
     },
+    computed: {
+      isLoading: function() {
+        return this.$store.state.isLoading;
+      }
+    }
 }
 </script>

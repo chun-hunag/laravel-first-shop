@@ -1,6 +1,8 @@
 <template>
   <div class="container content">
+      <!-- 搜尋欄 -->
       <SearchBar v-on:searchProducts="searchProducts"></SearchBar>
+      <!-- 商品列表 -->
       <div class="wrapper">
         <div class="grid-item" v-for="(product, index) in products" :key="index">
           <div class="w-100 h-100 text-center" @click="clickProduct(product.id)">
@@ -12,6 +14,7 @@
           </div>
         </div>
       </div>
+      <!-- 分頁按鈕 -->
       <div class="w-100 text-center">
           <div class="d-flex justify-content-center">
             <div class="mr-2 page-left-double-arrow" @click="toFirstPage()">
@@ -21,8 +24,14 @@
               <i class="fas fa-chevron-left"></i>
             </div>
             <div class="" v-for="(value, index) in currentPageArray" :key="index" @click="switchPage(value)">
-                <span v-if="value != currentPage" class="dot">{{ value }}</span>
-                <span v-else class="dot-blue">{{ value }}</span>
+                <!-- 不是目前瀏覽頁面時，圓形頁面按鈕 -->
+                <div v-if="value != currentPage" class="dot">
+                  <div class="text-dot">{{ value }}</div>
+                </div>
+                <!-- 是目前瀏覽頁面時，圓形的頁面按鈕 -->
+                <div v-else class="dot-blue">
+                  <div class="text-dot">{{ value }}</div> 
+                </div>
             </div>
             <div class="ml-2 page-right-arrow" @click="pagePlus()">
                 <i class="fas fa-chevron-right"></i>
@@ -42,21 +51,22 @@ import VueGridLayout from 'vue-grid-layout';
 export default {
     data () {
       return {
-        searchText: '',
+        searchText: '', // searchBar 內容
         searchSort: '',
-        searchLimit: '',
-        searchPage: 1,
-        totalPage: 0,
-        currentPage: 1,
-        currentPageArray: [],
-        products: [],
+        searchLimit: '', // search 的上限
+        searchPage: 1, // searh 第幾頁
+        totalPage: 0, // 總共幾頁
+        currentPage: 1, // 目前第幾頁
+        currentPageArray: [], // 目前頁數的arrau
+        products: [], // 商品資料的array
+        // 其它套件參數
         layout: [
 
             ],
         draggable: true,
         resizable: true,
         index: 0,
-        eventLog: []
+        eventLog: [],
       }
     },
     methods: {
@@ -74,7 +84,8 @@ export default {
           this.totalPage = Number.parseInt(data.count / 30) + (((data.count % 30) !== 0) ? 1 : 0);
           this.initCurrentPageArray();
         },
-        switchPage: function (page) {
+        switchPage: function (page) { // 商品頁面切換
+          this.$store.commit('setIsLoading', true); // 開始loading
           this.searchPage = page;
           this.currentPage = page;
           axios.get('products/search', {
@@ -86,11 +97,12 @@ export default {
           }).then(response => {
             this.products = response.data.products;
             this.totalPage = Number.parseInt(response.data.count / 30) + (((response.data.count % 30) !== 0) ? 1 : 0);
+            this.$store.commit('setIsLoading', false); // 結束loading
           }).catch(error => {
 
           });
         },
-        initCurrentPageArray: function () {
+        initCurrentPageArray: function () { // 初始化page Array
           let tmpArray = [];
           if (this.totalPage < 5) {
             for (let i = 1; i <= this.totalPage; i++) {
@@ -101,7 +113,7 @@ export default {
           }
           this.currentPageArray = tmpArray;
         },
-        pagePlus: function () {
+        pagePlus: function () { // 下一頁
           if (!(Math.max(...this.currentPageArray) >= this.totalPage)) { // make sure page number
             this.currentPageArray = this.currentPageArray.map(x => x + 1);
           }
@@ -110,7 +122,7 @@ export default {
             this.switchPage(this.currentPage);
           }
         },
-        pageMinus: function () {
+        pageMinus: function () { // 上一頁
           if (!(Math.min(...this.currentPageArray) <= 1)) { // make sure page number
              this.currentPageArray = this.currentPageArray.map(x => x - 1);
           }
@@ -119,12 +131,12 @@ export default {
             this.switchPage(this.currentPage);
           }
         },
-        toFirstPage: function () {
+        toFirstPage: function () { // 到第一頁
           this.currentPage = 1;
           this.initCurrentPageArray();
           this.switchPage(this.currentPage);
         },
-        toLastPage: function () {
+        toLastPage: function () { // 到最後一頁
           this.currentPage = this.totalPage;
           if (this.totalPage >= 5) {
             this.currentPageArray = [this.totalPage - 4, this.totalPage - 3, this.totalPage - 2, this.totalPage - 1, this.totalPage];
@@ -147,6 +159,7 @@ export default {
       
     },
     mounted: function () {
+      this.$store.commit('setIsLoading', true); // 開始loading
       axios.get('products/search', {
         params: {
           text: '',
@@ -157,6 +170,7 @@ export default {
         this.products = response.data.products;
         this.totalPage = (response.data.count / 30) + (((response.data.count % 30) !== 0) ? 1 : 0);
         this.initCurrentPageArray();
+        this.$store.commit('setIsLoading', false); // 結束loading
       }).catch(error => {
 
       });
@@ -204,15 +218,34 @@ export default {
   width: 2rem;
   background-color: #bbb;
   border-radius: 50%;
-  display: inline-block;
+  display: flex;
 }
 .dot-blue {
   height: 2rem;
   width: 2rem;
   background-color: #0389ff;
   border-radius: 50%;
-  display: inline-block;
+  display: flex;
 }
+/* 頁面切換按鈕的置中 */
+.text-dot {
+    width: 100%;
+    height: 100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content: center;
+}
+/* 針對所有 fontawesome 的圖片元素class 置中 */
+.fas {
+    width: 100%;
+    height: 100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content: center;
+}
+
 .vue-grid-layout {
     background: #FFFFFF;
     height: 1140px !important;

@@ -10,7 +10,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 mx-1 text-left"><i class="fas fa-shopping-cart blue-mid icon"></i></div>
+        <div class="col-md-3 mx-1 text-left"><i class="fas fa-shopping-cart blue-mid icon" @click="goCartPage()"></i></div>
     </div>
   </div>
 </template>
@@ -23,7 +23,8 @@ export default {
       }
     },
     methods: {
-      search: function () {
+      search: function () { // 搜尋商品資料
+        this.$store.commit('setIsLoading', true); // 開始loading
         axios.get('products/search', {
           params: {
             text: this.searchText,
@@ -36,10 +37,14 @@ export default {
           data.searchText = this.searchText;
           data.count = response.data.count;
           this.$emit('searchProducts', data); // pass value to parent component
+          this.$store.commit('setIsLoading', false); // 結束loading
         }).catch(error => {
 
         });
-        }
-    }
+      },
+      goCartPage: function () { // 跳轉至購物車頁面
+        this.$router.push({ name: 'cart'})
+      }
+    },
 }
 </script>

@@ -1,23 +1,26 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
 import Vuex from 'vuex'
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-      userName: '',
-      isGuest: true,
+      userName: '', // 使用者名稱
+      isGuest: true, // 是否為訪客
+      isLoading: false, // 是否顯示loading
       cart: []
     },
     mutations: {
-      setUserName (state, userName) {
+      setUserName (state, userName) { // update username
         state.userName = userName;
       },
-      setIsGuest (state, isGuest) {
+      setIsGuest (state, isGuest) { // update isGuest
           state.isGuest = isGuest;
       },
-      setCart (state, product){
+      setIsLoading(state, isLoading) { // update isLoading
+          state.isLoading = isLoading;
+      },
+      setCart (state, product){ // update cart
         state.cart.push(product);
       }
     }

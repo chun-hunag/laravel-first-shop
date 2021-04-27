@@ -4,6 +4,8 @@ import Index from '../components/Index.vue';
 import Login from '../components/auth/Login.vue';
 import Register from '../components/auth/Register.vue';
 import SingleProduct from '../components/product/SingleProduct.vue';
+import Cart from '../components/Cart.vue';
+import Redirect from '../components/Redirect.vue';
 
 Vue.use(VueRouter);
 
@@ -31,5 +33,16 @@ export default new VueRouter({
         name: 'singleProduct',
         component: SingleProduct,
       },
-    ]
+      {
+        path: '/cart',
+        name: 'cart',
+        component: Cart
+      },
+      {
+        path: '/redirect',
+        name: 'redirect',
+        component: Redirect
+      }
+  ],
+
 })

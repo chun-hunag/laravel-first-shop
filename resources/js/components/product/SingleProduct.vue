@@ -123,8 +123,8 @@ export default {
         isSelected: function (id) {
             return id === this.selectedSkuId;
         },
-        addCart: function () { // 將商品加入購物車
-            axios.post('/auth/cart-add', {
+        addCart: async function () { // 將商品加入購物車
+            await axios.post('/auth/cart-add', {
                 'product_id': this.product.id,
                 'product_sku_id': this.selectedSkuId,
                 'amount': this.amount
@@ -136,12 +136,13 @@ export default {
 
             });
         },
-        addAnadGoCart: function () { // 將商品加入購物車後跳到購車頁面
-
+        addAnadGoCart: async function () { // 將商品加入購物車後跳到購車頁面
+            await this.addCart();
+            this.$router.push('cart');
         }
     },
     computed: {
-        stock: function () {
+        stock: function () { 
             let stock = 0;
             this.productSkus.forEach(element => {
               if (this.selectedSkuId === element.id) {
@@ -152,17 +153,20 @@ export default {
           }
     },
     mounted: function () {
+        // swipper 設定
         this.$nextTick(() => {
           const swiperTop = this.$refs.swiperTop.$el.swiper
           const swiperThumbs = this.$refs.swiperThumbs.$el.swiper
           swiperTop.controller.control = swiperThumbs
           swiperThumbs.controller.control = swiperTop
         })
+        // 搜尋該筆商品資訊
         let id = this.$route.query.id;
         if (id === null) {
-            this.$route.push('index');
+            this.$router.push('index');
             return;
         }
+        // 發出請求
         axios.get('/api/product/' + id,)
         .then(response => {
             this.product = response.data.product;
@@ -172,7 +176,7 @@ export default {
             this.reviewCount = this.product.review_count;
             this.price = this.product.price;
             this.selectedSkuId = this.productSkus[0].id;
-        }).catch(error => {
+        }).catch(error => { // 應使用modal 跳警告視窗
 
         });
   },

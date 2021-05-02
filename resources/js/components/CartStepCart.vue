@@ -27,14 +27,14 @@
           <div class="w-10 mx-2 btn-remove-product" @click="removeCartItem(item.id)"><img src="/static/icons/fa-times-circle.svg" class="img-btn-remve" /></div>
         </div>
       </div>
-    </div>
-    <!-- 總價格 -->
-    <div class="w-100 h-10 text-center d-flex bg-gray" >
-      <div class="w-20 mx-2">&nbsp;</div>
-      <div class="w-40 mx-2 product-title">&nbsp;</div>
-      <div class="w-10 mx-2 product-price"> {{ totalPrice | decimalFormat }} </div>
-      <div class="w-10 mx-2 product-amount"> &nbsp; </div>
-      <div class="w-10 mx-2">&nbsp;</div>
+      <!-- 總價格 -->
+      <div class="w-100 h-10 text-center d-flex bg-gray" >
+        <div class="w-20 mx-2">&nbsp;</div>
+        <div class="w-40 mx-2 product-title">&nbsp;</div>
+        <div class="w-10 mx-2 product-price"> {{ totalPrice | decimalFormat }} </div>
+        <div class="w-10 mx-2 product-amount"> &nbsp; </div>
+        <div class="w-10 mx-2">&nbsp;</div>
+      </div>
     </div>
   </div>
 </template>

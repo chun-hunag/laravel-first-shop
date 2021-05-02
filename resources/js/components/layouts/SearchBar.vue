@@ -28,7 +28,7 @@ export default {
     },
     methods: {
       search: function () { // 搜尋商品資料
-        axios.get('products/search', {
+        axios.get('/api/product/search', {
           params: {
             text: this.searchText,
             limit: 30,

@@ -69,6 +69,28 @@ Vue.use(VueAwesomeSwiper, /* { default global options } */)
 import {cookieMixin} from './mixin/cookieMixin.js';
 Vue.mixin(cookieMixin);
 
+// plugins
+
+
+// axios
+axios.interceptors.request.use(function (config) { // 新增攔截器
+    // do something before request
+    store.commit('setIsLoading', true); // 開始loading
+    return config;
+  }, function (error) { // do somethin when request error
+    store.commit('setIsLoading', false); // 結束loading
+    return Promise.reject(error);
+  });
+
+axios.interceptors.response.use(function (response) { // 新增response 攔截器
+    // do something after response
+    store.commit('setIsLoading', false); // 結束loading
+    return response;
+  }, function (error) { // do something when response error
+    store.commit('setIsLoading', false); // 結束loading
+    return Promise.reject(error);
+  });
+
 const app = new Vue({
     el: '#app',
     router,

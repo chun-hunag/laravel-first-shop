@@ -85,7 +85,6 @@ export default {
           this.initCurrentPageArray();
         },
         switchPage: function (page) { // 商品頁面切換
-          this.$store.commit('setIsLoading', true); // 開始loading
           this.searchPage = page;
           this.currentPage = page;
           axios.get('products/search', {
@@ -97,7 +96,6 @@ export default {
           }).then(response => {
             this.products = response.data.products;
             this.totalPage = Number.parseInt(response.data.count / 30) + (((response.data.count % 30) !== 0) ? 1 : 0);
-            this.$store.commit('setIsLoading', false); // 結束loading
           }).catch(error => {
 
           });
@@ -159,8 +157,7 @@ export default {
       
     },
     mounted: function () {
-      this.$store.commit('setIsLoading', true); // 開始loading
-      axios.get('products/search', {
+      axios.get('/api/product/search', {
         params: {
           text: '',
           limit: 30,
@@ -170,7 +167,6 @@ export default {
         this.products = response.data.products;
         this.totalPage = (response.data.count / 30) + (((response.data.count % 30) !== 0) ? 1 : 0);
         this.initCurrentPageArray();
-        this.$store.commit('setIsLoading', false); // 結束loading
       }).catch(error => {
 
       });

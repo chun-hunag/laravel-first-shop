@@ -23,7 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('index'); // 使用index當主頁
     }
 
         /**

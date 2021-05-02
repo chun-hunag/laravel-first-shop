@@ -8,8 +8,6 @@ use App\ProductSku;
 
 class ProductsController extends Controller
 {
-    
-
 
     /**
      *  
@@ -68,45 +66,14 @@ class ProductsController extends Controller
      *  Return product data
      *  @return string
      */
-    public function getProductById(Request $request)
+    public function getProductById(Request $request, $id)
     {
-        
-        if (!$request->has('id')) {
-            return response()->json([
-                'result' => 'product is not exist'
-            ], 200);
-        }
-
-        $id = $request->query('id');
-        $product = Product::find($id);
-        if(is_null( $product)){
-            return response()->json([
-                'result' => 'product is not exist'
-            ], 200);
-        }
-
-        // make sure product is on_sale
-        if($product->on_sale != 1){
-            return response()->json([
-                'result' => 'product is not on sale'
-            ], 200);
-        }
-
-        // search produckSku
-        $productSkus = ProductSku::where('product_id', $product->id)->get();
-        if(is_null($productSkus)){
-            return response()->json([
-                'result' => 'product is out of stock'
-            ], 200);
-        }
+        $product_set = Product::getProductCacheOrSet($id);
 
         $headers = [
             'Content-Type' => 'application/json; charset=utf-8'
         ];
-        return response()->json([
-            'product' => $product,
-            'productSkus' => $productSkus,
-            'result' => 'success'
-        ], 200, $headers, JSON_UNESCAPED_UNICODE);    
+        return response()->json($product_set , 200, $headers, JSON_UNESCAPED_UNICODE);    
     }
+
 }

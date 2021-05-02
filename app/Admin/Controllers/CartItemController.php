@@ -28,6 +28,7 @@ class CartItemController extends AdminController
 
         $grid->column('id', __('Id'));
         $grid->column('cart_id', __('Cart id'));
+        $grid->column('product_id', __('Product id'));
         $grid->column('product_sku_id', __('Product sku id'));
         $grid->column('amount', __('Amount'));
         $grid->column('created_at', __('Created at'));
@@ -48,6 +49,7 @@ class CartItemController extends AdminController
 
         $show->field('id', __('Id'));
         $show->field('cart_id', __('Cart id'));
+        $show->field('product_id', __('Product id'));
         $show->field('product_sku_id', __('Product sku id'));
         $show->field('amount', __('Amount'));
         $show->field('created_at', __('Created at'));
@@ -66,6 +68,7 @@ class CartItemController extends AdminController
         $form = new Form(new CartItem());
 
         $form->number('cart_id', __('Cart id'));
+        $form->number('product_id', __('Product id'));
         $form->number('product_sku_id', __('Product sku id'));
         $form->number('amount', __('Amount'));
 

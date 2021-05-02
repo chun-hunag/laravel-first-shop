@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
+    protected $redirectPath = '/index'; // 重寫登入後重導路徑
+
     /**
      * Create a new AuthController instance.
      *

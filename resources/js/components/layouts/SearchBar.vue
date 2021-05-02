@@ -5,8 +5,12 @@
         <div class="col-md-6 search-bar">
             <div class="">
                 <div class="d-flex bg-white">
+                    <!--  -->
                     <input class="col-md-10 search-input" type="text" v-model="searchText" name="search-content">
-                      <button class="col-md-2 p-1 bg-blue-mid search-btn " @click="search()"><i class="fas fa-search bg-blue-mid white icon"></i></button>
+                    <!-- 搜尋按鈕 -->
+                    <button class="col-md-2 p-1 bg-blue-mid search-btn " @click="search()">
+                      <i class="fas fa-search white icon bg-blue-mid"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -24,7 +28,6 @@ export default {
     },
     methods: {
       search: function () { // 搜尋商品資料
-        this.$store.commit('setIsLoading', true); // 開始loading
         axios.get('products/search', {
           params: {
             text: this.searchText,
@@ -37,7 +40,6 @@ export default {
           data.searchText = this.searchText;
           data.count = response.data.count;
           this.$emit('searchProducts', data); // pass value to parent component
-          this.$store.commit('setIsLoading', false); // 結束loading
         }).catch(error => {
 
         });

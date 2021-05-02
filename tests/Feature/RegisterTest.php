@@ -41,7 +41,7 @@ class RegisterTest extends TestCase
             'password_confirmation' => '123456789',
             'cellphone' => '0988924578'
         ]));
-        $response->assertRedirect(route('home'));
+        $response->assertRedirect(route('index'));
         $this->assertDatabaseHas('users', [
             'email' => '12345@gmail.com'
         ]);

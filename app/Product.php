@@ -9,6 +9,9 @@ class Product extends Model
 {
     protected $table = 'products';
 
+    public const CACHE_TIME = 30; // 30 seconds
+
+
     /**
      * The attributes that are mass assignable.
      *
@@ -113,4 +116,62 @@ class Product extends Model
 
         return $statement[0]->Auto_increment;
     }
+
+    /**
+     *  若有快取則取得Product 快取，沒有就撈取後建立
+     *  @param int $id
+     *  @param array
+     */
+    public static function getProductCacheOrSet(int $id)
+    {
+        $key = Product::getCacheKey($id);
+
+        $product_set = cache($key);
+        if (isset($product_set)) {
+            return $product_set;
+        }
+
+        return Product::getProductAndCache($id); // 取得產品資訊並快取
+
+    } 
+
+    /**
+     *  撈取產品資料，然後建立快取
+     *  @param int $id
+     *  @return array
+     */
+    public static function getProductAndCache(int $id)
+    {
+        $product = Product::find($id);
+        if(is_null($product)){
+            return [];
+        }
+        // make sure product is on_sale
+        if($product->on_sale != 1){
+            return [];
+        }
+
+        // search produckSku
+        $productSkus = ProductSku::where('product_id', $id)->get();
+        if(is_null($productSkus)){
+            return [];
+        }
+
+        $product_set = ['product' => $product, 'productSkus' => $productSkus];
+        $key = Product::getCacheKey($id);
+        cache([$key => $product_set], Product::CACHE_TIME); // chche
+        return $product_set;
+    }
+
+    /**
+     *  get product cache key by id
+     *  @param int $id
+     *  @param string 
+     */
+    public static function getCacheKey(int $id) 
+    {
+        return 'product-' . $id;
+    } 
+
+    
 }

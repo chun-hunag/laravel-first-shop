@@ -11,7 +11,7 @@ class CartItem extends Model
      *
      * @var array
      */
-    protected $fillable = ['cart_id', 'product_sku_id', 'amount'];
+    protected $fillable = ['cart_id', 'product_id', 'product_sku_id', 'amount'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -20,8 +20,17 @@ class CartItem extends Model
      */
     protected $hidden = [];
 
+    public function product()
+    {
+        return $this->hasOne(ProductSku::class);
+    }
+
     public function productSku()
     {
-        return $this->belongsTo(ProductSku::class);
+        return $this->hasOne(ProductSku::class);
+    }
+    public function cart()
+    {
+        return $this->belongsTo(Cart::class);
     }
 }

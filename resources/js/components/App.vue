@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <Header></Header>
-    <router-view></router-view>
-    <!-- vue-loading -->
-    <loading :active.sync="isLoading"></loading>
-    <Footer></Footer>
+      <Header></Header>
+      <router-view></router-view>
+      <!-- vue-loading -->
+      <loading :active.sync="isLoading"></loading>
+      <Footer></Footer>
   </div>
 </template>
 

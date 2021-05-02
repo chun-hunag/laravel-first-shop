@@ -2,7 +2,7 @@
   <div>
       <nav class="navbar navbar-expand-md navbar-light header shadow-sm" >
         <div class="container">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" @click="goIndex()">
                 First Shop
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,6 +67,9 @@ export default {
             }).catch(error => {
 
             });
+        },
+        goIndex: function () {
+            this.$router.push('index');
         }
     },
     mounted : function () {
@@ -75,6 +78,7 @@ export default {
             this.$store.commit('setUserName', response.data.name);
             if (this.userName !== '') { // 非空白 代表有登入
                 this.$store.commit('setIsGuest', false);
+                this.$store.commit('updateCart');  // 撈取cart 資料
             }
         })
         .catch(error => {

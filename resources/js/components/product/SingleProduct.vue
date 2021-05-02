@@ -1,5 +1,5 @@
 <template>
-<div class="container product-container">
+<div class="container product-container content">
     <div class="d-flex">
         <!-- picture -->
         <div class="col-md-5 pl-0">
@@ -48,10 +48,12 @@
                 </div>
             </div>
             <div class="col-md-12 h-10 text-center d-flex">
-                <div class="col-md-6 mx-2 h-100 bg-blue-mid white product-cart-btn">
+                <!-- 加入購物車按鈕 -->
+                <div class="col-md-6 mx-2 h-100 bg-blue-mid white product-cart-btn"  @click="addCart()">
                     <span class="verticle-center">加入購物車</span>
                 </div>
-                <div class="col-md-6 mx-2 h-100 bg-blue-mid white product-buy-btn">
+                <!-- 加入購物車後 跳結帳頁面 -->
+                <div class="col-md-6 mx-2 h-100 bg-blue-mid white product-buy-btn"  @click="addAnadGoCart()">
                     <span class="verticle-center">直接購買</span>
                 </div>
             </div>
@@ -73,7 +75,7 @@ export default {
           reviewCount: 0,
           price: '',
           images: [],
-          amount: 0,
+          amount: 1,
           product: '',
           productSkus: [],
           selectedSkuId : 0,
@@ -100,38 +102,54 @@ export default {
       SwiperSlide
     },
     methods: {
-        addAmount: function () {
+        addAmount: function () { // 增加數量
             this.amount += 1;
             if (this.amount > this.stock) {
-                this.amount = this.stock;
+              this.amount = this.stock;
             }
         },
-        minusAmount: function () {
+        minusAmount: function () { // 減少數量
             this.amount -= 1;
             if (this.amount < 1) {
-                this.amount = 0;
+              this.amount = 1;
             }
         },
-        selectSku: function (id) {
-          this.selectedSkuId = id;
-          if (this.amount > this.stock) {
-            this.amount = this.stock;
-          }
+        selectSku: function (id) { // 選擇單品庫存
+            this.selectedSkuId = id;
+            if (this.amount > this.stock) {
+              this.amount = this.stock;
+            }
         },
         isSelected: function (id) {
-          return id === this.selectedSkuId;
+            return id === this.selectedSkuId;
+        },
+        addCart: function () { // 將商品加入購物車
+            axios.post('/auth/cart-add', {
+                'product_id': this.product.id,
+                'product_sku_id': this.selectedSkuId,
+                'amount': this.amount
+            })
+            .then(response => { // 成功會直接回傳最新的購物車資料
+                this.$store.commit('setCart', response.data)
+            })
+            .catch(error => { // 失敗應跳出Modal 提示
+
+            });
+        },
+        addAnadGoCart: function () { // 將商品加入購物車後跳到購車頁面
+
         }
     },
     computed: {
         stock: function () {
-          let stock = 0;
-          this.productSkus.forEach(element => {
-            if (this.selectedSkuId === element.id) {
-              stock = element.stock;
-            }
-          });
-          return stock;
-        }
+            let stock = 0;
+            this.productSkus.forEach(element => {
+              if (this.selectedSkuId === element.id) {
+                stock = element.stock;
+              }
+            });
+            return stock;
+          }
     },
     mounted: function () {
         this.$nextTick(() => {
@@ -145,23 +163,19 @@ export default {
             this.$route.push('index');
             return;
         }
-        axios.get('/products', {
-                params: {
-                  id: id
-                }
-            })
-            .then(response => {
-                this.product = response.data.product;
-                this.productSkus = response.data.productSkus;
-                this.images = this.product.images;
-                this.title = this.product.title;
-                this.reviewCount = this.product.review_count;
-                this.price = this.product.price;
-                this.selectedSkuId = this.productSkus[0].id;
-            }).catch(error => {
+        axios.get('/api/product/' + id,)
+        .then(response => {
+            this.product = response.data.product;
+            this.productSkus = response.data.productSkus;
+            this.images = this.product.images;
+            this.title = this.product.title;
+            this.reviewCount = this.product.review_count;
+            this.price = this.product.price;
+            this.selectedSkuId = this.productSkus[0].id;
+        }).catch(error => {
 
-            });
-    },
+        });
+  },
 
 }
 </script>

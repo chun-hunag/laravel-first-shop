@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div class="container content">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -46,7 +46,7 @@
                                 </div>
                             </div>
                         </div>
-<!-- 
+
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="button" v-on:click="login" class="btn btn-primary">
@@ -56,7 +56,7 @@
                                     Forgot Your Password?
                                 </a>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </div>

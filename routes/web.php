@@ -1,7 +1,6 @@
 <?php
 use App\User;
-use App\Product;
-use App\Http\Controllers\ProductsController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +15,9 @@ use App\Http\Controllers\ProductsController;
 Route::get('/test', function () {
     return view('bindex');
 });
+// redirect home to index
+Route::redirect('/home', '/index');
+
 
 Route::get('/user/is-guest', 'UserController@isGuest');
 
@@ -28,30 +30,31 @@ Route::get('/index', 'SiteController@index')->name('index');
 
 
 
-Route::get('/welcome', function () {
-    return view('welcome');
-});
-
-
 Auth::routes();
 
+// Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/products/search',[ProductsController::class, 'search']);
-
-Route::get('/products',[ProductsController::class, 'getProductById']);
-
+// Route::get('/products',[ProductsController::class, 'getProductById']);
 
 
 // Route::get('/login', 'Auth\LoginController@login')->name('login');
 
-
+// Password
 Route::get('/home/password/reset', 'Auth\ResetPasswordController@showResetForm')->name('reset');
 
 Route::post('/home/password/update', 'Auth\ResetPasswordController@reset')->name('home.password.update');
 
+// Cart
+Route::group([
+    'prefix' => 'auth'
+], function ($router) {
+    Route::get('/cart', 'CartController@index')->name('cart');
+    Route::post('/cart-add', 'CartController@addCartItem')->name('cart-add');
+    Route::delete('/cart/{cart_item_id}/delete', 'CartController@removeCartItme')->name('cart-remove');
+});
 
-Route::get('{any}', function () {
-    return view('site.index');
+Route::get('{any}', function () { // 設定請求最後導向 vue的進入點
+    return view('index');
 })->where('any','.*');
+

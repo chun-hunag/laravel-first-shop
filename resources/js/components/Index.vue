@@ -87,7 +87,7 @@ export default {
         switchPage: function (page) { // 商品頁面切換
           this.searchPage = page;
           this.currentPage = page;
-          axios.get('products/search', {
+          axios.get('api/product/search', {
             params: {
               text: this.searchText,
               limit: 30,

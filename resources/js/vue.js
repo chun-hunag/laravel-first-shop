@@ -3,7 +3,6 @@ import router from './router';
 // 設定router 的callback function 
 router.beforeEach((to, from, next) => { // 設置全域前置守衛(每次router 切換前)
     store.commit('setIsLoading', true); // 開始loading
-    console.log(store.state.isLoading)
     next();
   });
 router.afterEach((to, from, next) => { // 設置全域後置守衛(每次router 切換後)

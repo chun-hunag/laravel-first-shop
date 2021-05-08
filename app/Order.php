@@ -16,6 +16,20 @@ class Order extends Model
     const SHIP_STATUS_DELIVERED = 'delivered';
     const SHIP_STATUS_RECEIVED = 'received';
 
+    public static $refundStatusMap = [
+        self::REFUND_STATUS_PENDING    => '未退款',
+        self::REFUND_STATUS_APPLIED    => '已申請退款',
+        self::REFUND_STATUS_PROCESSING => '退款中',
+        self::REFUND_STATUS_SUCCESS    => '退款成功',
+        self::REFUND_STATUS_FAILED     => '退款失敗',
+    ];
+
+    public static $shipStatusMap = [
+        self::SHIP_STATUS_PENDING   => '未發貨',
+        self::SHIP_STATUS_DELIVERED => '已發貨',
+        self::SHIP_STATUS_RECEIVED  => '已收貨',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *

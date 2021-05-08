@@ -58,30 +58,46 @@ export default {
       }
     },
     methods : {
-        logout : function () {
-            axios.post('/logout')
+        logout: function () {
+            let jwtToken = this.$store.state.jwtToken;
+            axios.post('/api/auth/logout', {},{
+                headers: {
+                    'Authorization': `Bearer ${jwtToken}`
+                }
+            })
             .then(response => {
+                this.delCookie('token');
                 this.$store.commit('setIsGuest', true);
                 this.$router.push('index');
                 location.reload(); // refresh csrf token
             }).catch(error => {
-
+                console.log(error);
             });
         },
         goIndex: function () {
             this.$router.push('index');
         }
     },
-    mounted : function () {
-        axios.get('/user/get-user-name')
+    mounted: function () {
+        let jwtToken = this.getCookie('token'); // get token from cookie
+        if (jwtToken === null) { // if there is no token , not call api
+            return
+        }
+
+        axios.get('/api/auth/me', {
+            headers: {
+                'Authorization': `Bearer ${jwtToken}`
+            }
+        })
         .then(response => {
-            this.$store.commit('setUserName', response.data.name);
+            this.$store.commit('setUserName', response.data.last_name);
             if (this.userName !== '') { // 非空白 代表有登入
                 this.$store.commit('setIsGuest', false);
                 this.$store.commit('updateCart');  // 撈取cart 資料
             }
         })
         .catch(error => {
+            
         });
     },
     computed : {

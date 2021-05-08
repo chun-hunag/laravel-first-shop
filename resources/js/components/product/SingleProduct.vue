@@ -124,10 +124,15 @@ export default {
             return id === this.selectedSkuId;
         },
         addCart: async function () { // 將商品加入購物車
-            await axios.post('/auth/cart-add', {
+            let jwtToken = this.$store.state.jwtToken;
+            await axios.post('/api/auth/cart-add', {
                 'product_id': this.product.id,
                 'product_sku_id': this.selectedSkuId,
                 'amount': this.amount
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${jwtToken}`
+                }
             })
             .then(response => { // 成功會直接回傳最新的購物車資料
                 this.$store.commit('setCart', response.data)

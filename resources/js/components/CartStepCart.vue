@@ -54,7 +54,11 @@ export default {
           this.$router.push('index');
       },
       removeCartItem: function(cartItemId){
-          axios.delete('/auth/cart/' + cartItemId + '/delete',)
+          axios.delete('/api/auth/cart/' + cartItemId + '/delete',{
+              headers: {
+                  'Authorization': `Bearer ${this.$store.state.jwtToken}`
+              }
+          })
           .then(response => { // 成功會直接回傳購物車 
               this.$store.commit('setCart', response.data)
           }).catch(error => { // 失敗應跳modal 提示訊息(未實作)

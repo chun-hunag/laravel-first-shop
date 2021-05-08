@@ -45,14 +45,6 @@ Route::get('/home/password/reset', 'Auth\ResetPasswordController@showResetForm')
 
 Route::post('/home/password/update', 'Auth\ResetPasswordController@reset')->name('home.password.update');
 
-// Cart
-Route::group([
-    'prefix' => 'auth'
-], function ($router) {
-    Route::get('/cart', 'CartController@index')->name('cart');
-    Route::post('/cart-add', 'CartController@addCartItem')->name('cart-add');
-    Route::delete('/cart/{cart_item_id}/delete', 'CartController@removeCartItme')->name('cart-remove');
-});
 
 Route::get('{any}', function () { // 設定請求最後導向 vue的進入點
     return view('index');

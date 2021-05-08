@@ -23,12 +23,13 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
 ], function ($router) {
-    Route::post('login', 'AuthController@login')->name('api.login');
+    Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::get('me', 'AuthController@me');
 
 });
+
 
 
 // Product
@@ -41,7 +42,15 @@ Route::group([
     
 });
 
-
+// Cart
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+], function ($router) {
+    Route::get('/cart', 'CartController@index')->name('cart');
+    Route::post('/cart-add', 'CartController@addCartItem')->name('cart-add');
+    Route::delete('/cart/{cart_item_id}/delete', 'CartController@removeCartItme')->name('cart-remove');
+});
 
 // Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');

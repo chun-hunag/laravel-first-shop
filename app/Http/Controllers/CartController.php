@@ -12,7 +12,7 @@ class CartController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:api', ['except' => ['login']]);
     }
     /**
      *  Get user's cart

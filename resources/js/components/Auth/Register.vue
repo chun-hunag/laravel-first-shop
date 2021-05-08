@@ -135,15 +135,7 @@ export default {
                 });
             }).then(
                 () => { // success
-                    axios.get('/user/get-user-name')
-                        .then(response => {
-                            this.$store.commit('setUserName', response.data.name);
-                            this.$store.commit('setIsGuest', false);
-                            this.$router.push('index');
-
-                        })
-                        .catch(error => {
-                        });
+                    this.$router.push('login'); // 強制重新登入，獲取jwt token
                 },
                 () => { // failed
                 }

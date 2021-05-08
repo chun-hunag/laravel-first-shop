@@ -8,9 +8,13 @@ export default new Vuex.Store({
       userName: '', // 使用者名稱
       isGuest: true, // 是否為訪客
       isLoading: false, // 是否顯示loading
+      jwtToken: '',
       cart: '',
     },
     mutations: {
+      setJwtToken(state, jwtToken) { // update jwtToken
+        state.jwtToken = jwtToken;
+      },
       setUserName(state, userName) { // update username
         state.userName = userName;
       },
@@ -24,7 +28,11 @@ export default new Vuex.Store({
         state.cart = cart;
       },
       updateCart(state) { // update cart by call api
-        axios.get('/auth/cart')
+        axios.get('/api/auth/cart',{
+            headers: {
+              'Authorization': `Bearer ${state.jwtToken}`
+          }
+        })
         .then(response => {
           console.log(response.data);
           state.cart = response.data;

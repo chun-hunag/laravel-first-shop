@@ -81,28 +81,36 @@ export default {
     methods : {
         login: function () {
             new Promise((resolve, reject) => {
-                axios.post('/login',{
+                axios.post('/api/auth/login',{
                     'email' : this.email,
                     'password' : this.password,
                     'remember' : this.remember
                 })
                 .then(response => {
-                    resolve(response);                    
+                    this.$store.commit('setJwtToken', response.data.access_token);
+                    this.setCookie('token', response.data.access_token, 1);
+                    resolve(response.data.access_token);             
                 }).catch(error => {
                     if(error.response.status = 422){
                         this.errors = error.response.data.errors;
                     }
                 });
             }).then(
-                () => { // success
-                    axios.get('/user/get-user-name')
+                (jwtToekn = this.$store.state.jwtToken) => { // success
+                    axios.get('/api/auth/me',{
+                            headers: {
+                                'Authorization': `Bearer ${jwtToekn}`
+                            }
+                        })
                         .then(response => {
-                            this.$store.commit('setUserName', response.data.name);
+                            this.$store.commit('setUserName', response.data.last_name);
                             this.$store.commit('setIsGuest', false);
                             this.$router.push('index');
                             location.reload(); // refresh csrf token
                         })
                         .catch(error => {
+                            this.delCookie('token');
+                            console.log(error);
                         });
                 },
                 () => { // failed

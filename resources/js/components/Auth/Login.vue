@@ -104,6 +104,7 @@ export default {
                         })
                         .then(response => {
                             this.$store.commit('setUserName', response.data.last_name);
+                            this.$store.commit('setUser', response.data);
                             this.$store.commit('setIsGuest', false);
                             this.$router.push('index');
                             location.reload(); // refresh csrf token

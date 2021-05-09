@@ -59,6 +59,10 @@ import Loading from 'vue-loading-overlay' //component
 import 'vue-loading-overlay/dist/vue-loading.css' //style
 Vue.component('Loading', Loading)
 
+// vue-checkbox-radio
+import CheckboxRadio from 'vue-checkbox-radio';
+
+Vue.use(CheckboxRadio);
 
 // require styles
 import 'swiper/css/swiper.css';

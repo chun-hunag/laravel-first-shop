@@ -91,6 +91,7 @@ export default {
         })
         .then(response => {
             this.$store.commit('setUserName', response.data.last_name);
+            this.$store.commit('setUser', response.data);
             if (this.userName !== '') { // 非空白 代表有登入
                 this.$store.commit('setIsGuest', false);
                 this.$store.commit('updateCart');  // 撈取cart 資料

@@ -21,7 +21,7 @@
           <div class="w-20 mx-2">
             <img :src="'/upload/'  + item.product.cover_image" class ="product-img"/>
           </div>
-          <div class="w-40 mx-2 product-title">{{item.product.title}}</div>
+          <div class="w-40 mx-2 product-title">{{item.product.title + ' / ' + item.product_sku.title}}</div>
           <div class="w-10 mx-2 product-price"> {{ '$' + ((item.product.price * item.amount) | decimalFormat)}} </div>
           <div class="w-10 mx-2 product-amount"> {{item.amount}} 個</div>
           <div class="w-10 mx-2 btn-remove-product" @click="removeCartItem(item.id)"><img src="/static/icons/fa-times-circle.svg" class="img-btn-remve" /></div>
@@ -66,14 +66,6 @@ export default {
           });
       },
     },
-    mounted() {
-      this.$emit('can-continue', {value: true});
-        // if(!this.$v.$invalid) {
-        //     this.$emit('can-continue', {value: true});
-        // } else {
-        //     this.$emit('can-continue', {value: false});
-        // }
-    },
     computed: {
       cart: function () {
         return this.$store.state.cart;
@@ -100,6 +92,14 @@ export default {
       decimalFormat: function (value) {
         return (Math.round(value * 100) / 100).toFixed(2);
       }
+    },
+    mounted() {
+      this.$emit('can-continue', {value: true});
+        // if(!this.$v.$invalid) {
+        //     this.$emit('can-continue', {value: true});
+        // } else {
+        //     this.$emit('can-continue', {value: false});
+        // }
     },
     components: {
         GridLayout: VueGridLayout.GridLayout,

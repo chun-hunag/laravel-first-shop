@@ -29,8 +29,25 @@ class CartItem extends Model
     {
         return $this->hasOne(ProductSku::class);
     }
+
     public function cart()
     {
         return $this->belongsTo(Cart::class);
     }
+
+    /**
+     *  找出same product_id, product_sku_id, cart_id 's  cart_item
+     *  @param int $cart_id
+     *  @param int $product_id
+     *  @param int $product_sku_id
+     *  @return null|CartItem
+     */
+    public static function findCartItem(int $cart_id, int $product_id, int $product_sku_id)
+    {
+        return CartItem::where('product_id', $product_id)
+                             ->where('product_sku_id', $product_sku_id)
+                             ->where('cart_id', $cart_id)
+                             ->first();
+    }
+
 }

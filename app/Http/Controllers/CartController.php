@@ -60,15 +60,22 @@ class CartController extends Controller
             $cart = Cart::insertWithUserId($user_id);
         }
         // produck_sku check
+        $cart_item = CartItem::findCartItem($cart->id, $post['product_id'], $post['product_sku_id']);
+
+        if (isset($cart_item)) { // 如果有相同的項目在購物車中
+            $cart_item->amount += $post['amount'];
+        } else {
         // insert
-        $cart_item = CartItem::create([
-            'cart_id' => $cart->id,
-            'product_id' => $post['product_id'],
-            'product_sku_id' => $post['product_sku_id'],
-            'amount' => $post['amount'],
-            'created_at' => time(),
-            'updated_at' => time()
-        ]);
+            $cart_item = CartItem::create([
+                'cart_id' => $cart->id,
+                'product_id' => $post['product_id'],
+                'product_sku_id' => $post['product_sku_id'],
+                'amount' => $post['amount'],
+                'created_at' => time(),
+                'updated_at' => time()
+            ]);
+        }
+
         $cart_item->save();
         
         $cart = [];

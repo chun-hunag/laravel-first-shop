@@ -6,15 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    // 退款狀態
     const REFUND_STATUS_PENDING = 'pending';
     const REFUND_STATUS_APPLIED = 'applied';
     const REFUND_STATUS_PROCESSING = 'processing';
     const REFUND_STATUS_SUCCESS = 'success';
     const REFUND_STATUS_FAILED = 'failed';
-
+    // 運送狀態
     const SHIP_STATUS_PENDING = 'pending';
     const SHIP_STATUS_DELIVERED = 'delivered';
     const SHIP_STATUS_RECEIVED = 'received';
+    // 運送方式
+    const SHIP_WAY_HOME_DELIVERY = 'home_delivery';
+    // 付費方式
+    const PAY_WAY_CREDIT_CARD = 'credit_card';
 
     public static $refundStatusMap = [
         self::REFUND_STATUS_PENDING    => '未退款',

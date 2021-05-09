@@ -5,7 +5,7 @@
             <div class="columns">
                 <div class="column is-8 is-offset-2">
                     <horizontal-stepper :steps="checkSteps" @completed-step="completeStep"
-                                        @active-step="isStepActive" @stepper-finished="alert"
+                                        @active-step="isStepActive" @stepper-finished="check"
                     >                     
                     </horizontal-stepper>
                 </div>
@@ -53,14 +53,14 @@ export default {
                         component: StepCheck,
                         completed: false
                     },
-                    {
-                        icon: 'info',
-                        name: 'fourth',
-                        title: '付款明細',
-                        subtitle: '',
-                        component: StepInfo,
-                        completed: false
-                    }
+                    // {
+                    //     icon: 'info',
+                    //     name: 'fourth',
+                    //     title: '付款明細',
+                    //     subtitle: '',
+                    //     component: StepInfo,
+                    //     completed: false
+                    // }
         ]
       }
     },
@@ -84,7 +84,7 @@ export default {
           })
       },
       // Executed when @stepper-finished event is triggered
-      alert(payload) {
+      check(payload) {
           alert('end')
       }
     },

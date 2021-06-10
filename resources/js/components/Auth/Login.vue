@@ -52,9 +52,9 @@
                                 <button type="button" v-on:click="login" class="btn btn-primary">
                                   Login
                                 </button>
-                                <a class="btn btn-link" href="'/password/request'">
-                                    Forgot Your Password?
-                                </a>
+                                <router-link :to="'password/email'" class="btn btn-link"> 
+                                  Forgot Your Password? 
+                                </router-link>
                             </div>
                         </div>
                     </div>

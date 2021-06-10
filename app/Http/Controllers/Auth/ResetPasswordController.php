@@ -8,14 +8,13 @@ use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 
 use App\User;
+use App\PasswordReset as PasswordResetModel;
 use Closure;
 use Illuminate\Support\Facades\Auth;
-
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\PasswordReset;
-
+use Illuminate\Support\Facades\Hash;
 class ResetPasswordController extends Controller
 {
     /*
@@ -30,7 +29,7 @@ class ResetPasswordController extends Controller
     */
 
     use ResetsPasswords;
-
+    const ERROR_MESSAGE_INVALID_TOKEN = 'Invalid token';
     /**
      * Where to redirect users after resetting their password.
      *
@@ -49,13 +48,17 @@ class ResetPasswordController extends Controller
      */
     public function showResetForm(Request $request, $token = null)
     {
+        $password_reset = PasswordResetModel::where('email', '=', $request->email)->firstOrFail();
+        if (!Hash::check($token, $password_reset->token)) {
+            $error_message = self::ERROR_MESSAGE_INVALID_TOKEN;
+            return redirect("/error?errorMessage={$error_message}");
+        }
+
         $token = User::genResetPasswordToken();
-        $user = Auth::user();
+        $user = User::where('email', '=', $request->email)->firstOrFail();
         $user->setRememberTokenAttribute($token);
         $user->save();
-        return view('auth.passwords.reset')->with(
-            ['token' => $user->remember_token, 'email' => $request->email]
-        );
+        return redirect("/password/reset?token={$token}&email={$request->email}");
     }
 
     /**
@@ -77,14 +80,13 @@ class ResetPasswordController extends Controller
             }
         );
 
-        
-
         // If the password was successfully reset, we will redirect the user back to
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
-        return $response == Password::PASSWORD_RESET
-                    ? $this->sendResetResponse($request, $response)
-                    : $this->sendResetFailedResponse($request, $response);
+        // 手動改寫過
+        return $response == Password::PASSWORD_RESET 
+                    ? response()->json([],200)
+                    : response()->json(['errors' =>['email' => [trans($response)]]], 422);
     }
 
     /**
@@ -114,9 +116,9 @@ class ResetPasswordController extends Controller
     public function broker(array $credentials, Closure $callback)
     {
         $user = User::where('email', $credentials['email'])
-                    ->where('remember_token', $credentials['token'])
                     ->first();
-        if(is_null($user)){
+
+        if(is_null($user) || !Hash::check($credentials['token'], $user->remember_token)){
             return Password::INVALID_TOKEN;
         }
         $this->resetPassword($user, $credentials['password']);

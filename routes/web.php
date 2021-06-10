@@ -40,12 +40,6 @@ Auth::routes();
 
 // Route::get('/login', 'Auth\LoginController@login')->name('login');
 
-// Password
-Route::get('/home/password/reset', 'Auth\ResetPasswordController@showResetForm')->name('reset');
-
-Route::post('/home/password/update', 'Auth\ResetPasswordController@reset')->name('home.password.update');
-
-
 Route::get('{any}', function () { // 設定請求最後導向 vue的進入點
     return view('index');
 })->where('any','.*');

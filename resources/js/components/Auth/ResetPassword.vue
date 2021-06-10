@@ -82,7 +82,7 @@ export default {
 
             })
             .then(response => {
-                console.log(response.data);
+                this.$router.push({ name: 'redirect', params: { message: 'Password has been reset.', redirect: 'login' } })
             }).catch(error => {
                 if(error.response.status = 422){
                     this.errors = error.response.data.errors;

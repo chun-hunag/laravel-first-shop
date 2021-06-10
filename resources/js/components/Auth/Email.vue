@@ -55,7 +55,7 @@ export default {
 
             })
             .then(response => {
-                this.$router.push({ name: 'index'});
+                this.$router.push({ name: 'redirect', params: { message: 'Password reset link has been send to email.', redirect: 'index' } })
             }).catch(error => {
                 if(error.response.status = 422){
                     this.errors = error.response.data.errors;
